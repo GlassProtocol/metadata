@@ -7,21 +7,24 @@ import {
   monetizationTypesToJSON,
 } from "./MonetizationTypes";
 import { Protocol } from "./Protocol";
-import { Link } from "./Link";
 
 export const protobufPackage = "metadata";
 
-export interface Monetization {
+export interface Tips {
   Version: string;
   MonetizationType: MonetizationTypes;
   Protocol: Protocol | undefined;
-  Metadata: Link | undefined;
+  RecipientAddress: string;
 }
 
-const baseMonetization: object = { Version: "", MonetizationType: 0 };
+const baseTips: object = {
+  Version: "",
+  MonetizationType: 0,
+  RecipientAddress: "",
+};
 
-export const Monetization = {
-  encode(message: Monetization, writer: Writer = Writer.create()): Writer {
+export const Tips = {
+  encode(message: Tips, writer: Writer = Writer.create()): Writer {
     if (message.Version !== "") {
       writer.uint32(10).string(message.Version);
     }
@@ -31,16 +34,16 @@ export const Monetization = {
     if (message.Protocol !== undefined) {
       Protocol.encode(message.Protocol, writer.uint32(26).fork()).ldelim();
     }
-    if (message.Metadata !== undefined) {
-      Link.encode(message.Metadata, writer.uint32(34).fork()).ldelim();
+    if (message.RecipientAddress !== "") {
+      writer.uint32(34).string(message.RecipientAddress);
     }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): Monetization {
+  decode(input: Reader | Uint8Array, length?: number): Tips {
     const reader = input instanceof Reader ? input : new Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMonetization } as Monetization;
+    const message = { ...baseTips } as Tips;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -54,7 +57,7 @@ export const Monetization = {
           message.Protocol = Protocol.decode(reader, reader.uint32());
           break;
         case 4:
-          message.Metadata = Link.decode(reader, reader.uint32());
+          message.RecipientAddress = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -64,8 +67,8 @@ export const Monetization = {
     return message;
   },
 
-  fromJSON(object: any): Monetization {
-    const message = { ...baseMonetization } as Monetization;
+  fromJSON(object: any): Tips {
+    const message = { ...baseTips } as Tips;
     if (object.Version !== undefined && object.Version !== null) {
       message.Version = String(object.Version);
     } else {
@@ -86,15 +89,18 @@ export const Monetization = {
     } else {
       message.Protocol = undefined;
     }
-    if (object.Metadata !== undefined && object.Metadata !== null) {
-      message.Metadata = Link.fromJSON(object.Metadata);
+    if (
+      object.RecipientAddress !== undefined &&
+      object.RecipientAddress !== null
+    ) {
+      message.RecipientAddress = String(object.RecipientAddress);
     } else {
-      message.Metadata = undefined;
+      message.RecipientAddress = "";
     }
     return message;
   },
 
-  toJSON(message: Monetization): unknown {
+  toJSON(message: Tips): unknown {
     const obj: any = {};
     message.Version !== undefined && (obj.Version = message.Version);
     message.MonetizationType !== undefined &&
@@ -105,15 +111,13 @@ export const Monetization = {
       (obj.Protocol = message.Protocol
         ? Protocol.toJSON(message.Protocol)
         : undefined);
-    message.Metadata !== undefined &&
-      (obj.Metadata = message.Metadata
-        ? Link.toJSON(message.Metadata)
-        : undefined);
+    message.RecipientAddress !== undefined &&
+      (obj.RecipientAddress = message.RecipientAddress);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Monetization>): Monetization {
-    const message = { ...baseMonetization } as Monetization;
+  fromPartial(object: DeepPartial<Tips>): Tips {
+    const message = { ...baseTips } as Tips;
     if (object.Version !== undefined && object.Version !== null) {
       message.Version = object.Version;
     } else {
@@ -132,10 +136,13 @@ export const Monetization = {
     } else {
       message.Protocol = undefined;
     }
-    if (object.Metadata !== undefined && object.Metadata !== null) {
-      message.Metadata = Link.fromPartial(object.Metadata);
+    if (
+      object.RecipientAddress !== undefined &&
+      object.RecipientAddress !== null
+    ) {
+      message.RecipientAddress = object.RecipientAddress;
     } else {
-      message.Metadata = undefined;
+      message.RecipientAddress = "";
     }
     return message;
   },
