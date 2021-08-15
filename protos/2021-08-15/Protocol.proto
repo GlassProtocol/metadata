@@ -1,0 +1,8 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+message Protocol {
+    string Name = 1;
+    string Network = 2;
+}

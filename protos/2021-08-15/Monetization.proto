@@ -1,0 +1,18 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "Link.proto";
+import "Protocol.proto";
+
+message Monetization {
+    string Version = 1;
+    MonetizationTypes MonetizationType = 2;
+    Protocol Protocol = 3;
+    Link Metadata = 4;
+}
+
+enum MonetizationTypes {
+    NONE = 0;
+    TIPS = 1;
+}
