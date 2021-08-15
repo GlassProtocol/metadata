@@ -6,7 +6,7 @@ import {
   monetizationTypesFromJSON,
   monetizationTypesToJSON,
 } from "./MonetizationTypes";
-import { Protocol } from "./Protocol";
+import { Protocol, protocolFromJSON, protocolToJSON } from "./Protocol";
 import { Link } from "./Link";
 
 export const protobufPackage = "metadata";
@@ -14,11 +14,15 @@ export const protobufPackage = "metadata";
 export interface Monetization {
   Version: string;
   MonetizationType: MonetizationTypes;
-  Protocol: Protocol | undefined;
+  Protocol: Protocol;
   Metadata: Link | undefined;
 }
 
-const baseMonetization: object = { Version: "", MonetizationType: 0 };
+const baseMonetization: object = {
+  Version: "",
+  MonetizationType: 0,
+  Protocol: 0,
+};
 
 export const Monetization = {
   encode(message: Monetization, writer: Writer = Writer.create()): Writer {
@@ -28,8 +32,8 @@ export const Monetization = {
     if (message.MonetizationType !== 0) {
       writer.uint32(16).int32(message.MonetizationType);
     }
-    if (message.Protocol !== undefined) {
-      Protocol.encode(message.Protocol, writer.uint32(26).fork()).ldelim();
+    if (message.Protocol !== 0) {
+      writer.uint32(24).int32(message.Protocol);
     }
     if (message.Metadata !== undefined) {
       Link.encode(message.Metadata, writer.uint32(34).fork()).ldelim();
@@ -51,7 +55,7 @@ export const Monetization = {
           message.MonetizationType = reader.int32() as any;
           break;
         case 3:
-          message.Protocol = Protocol.decode(reader, reader.uint32());
+          message.Protocol = reader.int32() as any;
           break;
         case 4:
           message.Metadata = Link.decode(reader, reader.uint32());
@@ -82,9 +86,9 @@ export const Monetization = {
       message.MonetizationType = 0;
     }
     if (object.Protocol !== undefined && object.Protocol !== null) {
-      message.Protocol = Protocol.fromJSON(object.Protocol);
+      message.Protocol = protocolFromJSON(object.Protocol);
     } else {
-      message.Protocol = undefined;
+      message.Protocol = 0;
     }
     if (object.Metadata !== undefined && object.Metadata !== null) {
       message.Metadata = Link.fromJSON(object.Metadata);
@@ -102,9 +106,7 @@ export const Monetization = {
         message.MonetizationType
       ));
     message.Protocol !== undefined &&
-      (obj.Protocol = message.Protocol
-        ? Protocol.toJSON(message.Protocol)
-        : undefined);
+      (obj.Protocol = protocolToJSON(message.Protocol));
     message.Metadata !== undefined &&
       (obj.Metadata = message.Metadata
         ? Link.toJSON(message.Metadata)
@@ -128,9 +130,9 @@ export const Monetization = {
       message.MonetizationType = 0;
     }
     if (object.Protocol !== undefined && object.Protocol !== null) {
-      message.Protocol = Protocol.fromPartial(object.Protocol);
+      message.Protocol = object.Protocol;
     } else {
-      message.Protocol = undefined;
+      message.Protocol = 0;
     }
     if (object.Metadata !== undefined && object.Metadata !== null) {
       message.Metadata = Link.fromPartial(object.Metadata);

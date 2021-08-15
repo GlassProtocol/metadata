@@ -1,41 +1,19 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import {
-  MonetizationTypes,
-  monetizationTypesFromJSON,
-  monetizationTypesToJSON,
-} from "./MonetizationTypes";
-import { Protocol } from "./Protocol";
 
 export const protobufPackage = "metadata";
 
 export interface Tips {
-  Version: string;
-  MonetizationType: MonetizationTypes;
-  Protocol: Protocol | undefined;
   RecipientAddress: string;
 }
 
-const baseTips: object = {
-  Version: "",
-  MonetizationType: 0,
-  RecipientAddress: "",
-};
+const baseTips: object = { RecipientAddress: "" };
 
 export const Tips = {
   encode(message: Tips, writer: Writer = Writer.create()): Writer {
-    if (message.Version !== "") {
-      writer.uint32(10).string(message.Version);
-    }
-    if (message.MonetizationType !== 0) {
-      writer.uint32(16).int32(message.MonetizationType);
-    }
-    if (message.Protocol !== undefined) {
-      Protocol.encode(message.Protocol, writer.uint32(26).fork()).ldelim();
-    }
     if (message.RecipientAddress !== "") {
-      writer.uint32(34).string(message.RecipientAddress);
+      writer.uint32(10).string(message.RecipientAddress);
     }
     return writer;
   },
@@ -48,15 +26,6 @@ export const Tips = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.Version = reader.string();
-          break;
-        case 2:
-          message.MonetizationType = reader.int32() as any;
-          break;
-        case 3:
-          message.Protocol = Protocol.decode(reader, reader.uint32());
-          break;
-        case 4:
           message.RecipientAddress = reader.string();
           break;
         default:
@@ -69,26 +38,6 @@ export const Tips = {
 
   fromJSON(object: any): Tips {
     const message = { ...baseTips } as Tips;
-    if (object.Version !== undefined && object.Version !== null) {
-      message.Version = String(object.Version);
-    } else {
-      message.Version = "";
-    }
-    if (
-      object.MonetizationType !== undefined &&
-      object.MonetizationType !== null
-    ) {
-      message.MonetizationType = monetizationTypesFromJSON(
-        object.MonetizationType
-      );
-    } else {
-      message.MonetizationType = 0;
-    }
-    if (object.Protocol !== undefined && object.Protocol !== null) {
-      message.Protocol = Protocol.fromJSON(object.Protocol);
-    } else {
-      message.Protocol = undefined;
-    }
     if (
       object.RecipientAddress !== undefined &&
       object.RecipientAddress !== null
@@ -102,15 +51,6 @@ export const Tips = {
 
   toJSON(message: Tips): unknown {
     const obj: any = {};
-    message.Version !== undefined && (obj.Version = message.Version);
-    message.MonetizationType !== undefined &&
-      (obj.MonetizationType = monetizationTypesToJSON(
-        message.MonetizationType
-      ));
-    message.Protocol !== undefined &&
-      (obj.Protocol = message.Protocol
-        ? Protocol.toJSON(message.Protocol)
-        : undefined);
     message.RecipientAddress !== undefined &&
       (obj.RecipientAddress = message.RecipientAddress);
     return obj;
@@ -118,24 +58,6 @@ export const Tips = {
 
   fromPartial(object: DeepPartial<Tips>): Tips {
     const message = { ...baseTips } as Tips;
-    if (object.Version !== undefined && object.Version !== null) {
-      message.Version = object.Version;
-    } else {
-      message.Version = "";
-    }
-    if (
-      object.MonetizationType !== undefined &&
-      object.MonetizationType !== null
-    ) {
-      message.MonetizationType = object.MonetizationType;
-    } else {
-      message.MonetizationType = 0;
-    }
-    if (object.Protocol !== undefined && object.Protocol !== null) {
-      message.Protocol = Protocol.fromPartial(object.Protocol);
-    } else {
-      message.Protocol = undefined;
-    }
     if (
       object.RecipientAddress !== undefined &&
       object.RecipientAddress !== null

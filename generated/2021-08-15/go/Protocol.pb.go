@@ -20,117 +20,57 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type ProtocolName int32
+type Protocol int32
 
 const (
-	ProtocolName_SOLANA ProtocolName = 0
+	Protocol_SOLANA_MAINNET Protocol = 0
 )
 
-// Enum value maps for ProtocolName.
+// Enum value maps for Protocol.
 var (
-	ProtocolName_name = map[int32]string{
-		0: "SOLANA",
+	Protocol_name = map[int32]string{
+		0: "SOLANA_MAINNET",
 	}
-	ProtocolName_value = map[string]int32{
-		"SOLANA": 0,
+	Protocol_value = map[string]int32{
+		"SOLANA_MAINNET": 0,
 	}
 )
 
-func (x ProtocolName) Enum() *ProtocolName {
-	p := new(ProtocolName)
+func (x Protocol) Enum() *Protocol {
+	p := new(Protocol)
 	*p = x
 	return p
 }
 
-func (x ProtocolName) String() string {
+func (x Protocol) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (ProtocolName) Descriptor() protoreflect.EnumDescriptor {
+func (Protocol) Descriptor() protoreflect.EnumDescriptor {
 	return file_Protocol_proto_enumTypes[0].Descriptor()
 }
 
-func (ProtocolName) Type() protoreflect.EnumType {
+func (Protocol) Type() protoreflect.EnumType {
 	return &file_Protocol_proto_enumTypes[0]
 }
 
-func (x ProtocolName) Number() protoreflect.EnumNumber {
+func (x Protocol) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use ProtocolName.Descriptor instead.
-func (ProtocolName) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use Protocol.Descriptor instead.
+func (Protocol) EnumDescriptor() ([]byte, []int) {
 	return file_Protocol_proto_rawDescGZIP(), []int{0}
-}
-
-type Protocol struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Name    ProtocolName `protobuf:"varint,1,opt,name=Name,proto3,enum=metadata.ProtocolName" json:"Name,omitempty"`
-	Network string       `protobuf:"bytes,2,opt,name=Network,proto3" json:"Network,omitempty"`
-}
-
-func (x *Protocol) Reset() {
-	*x = Protocol{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_Protocol_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Protocol) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Protocol) ProtoMessage() {}
-
-func (x *Protocol) ProtoReflect() protoreflect.Message {
-	mi := &file_Protocol_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Protocol.ProtoReflect.Descriptor instead.
-func (*Protocol) Descriptor() ([]byte, []int) {
-	return file_Protocol_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *Protocol) GetName() ProtocolName {
-	if x != nil {
-		return x.Name
-	}
-	return ProtocolName_SOLANA
-}
-
-func (x *Protocol) GetNetwork() string {
-	if x != nil {
-		return x.Network
-	}
-	return ""
 }
 
 var File_Protocol_proto protoreflect.FileDescriptor
 
 var file_Protocol_proto_rawDesc = []byte{
 	0x0a, 0x0e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x12, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x22, 0x50, 0x0a, 0x08, 0x50, 0x72,
-	0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x12, 0x2a, 0x0a, 0x04, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x0e, 0x32, 0x16, 0x2e, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x2e,
-	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x52, 0x04, 0x4e, 0x61,
-	0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x4e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x07, 0x4e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x2a, 0x1a, 0x0a, 0x0c,
-	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x0a, 0x0a, 0x06,
-	0x53, 0x4f, 0x4c, 0x41, 0x4e, 0x41, 0x10, 0x00, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x3b, 0x6d, 0x65,
-	0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x2a, 0x1e, 0x0a, 0x08, 0x50, 0x72,
+	0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x4f, 0x4c, 0x41, 0x4e, 0x41,
+	0x5f, 0x4d, 0x41, 0x49, 0x4e, 0x4e, 0x45, 0x54, 0x10, 0x00, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x3b,
+	0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -146,18 +86,15 @@ func file_Protocol_proto_rawDescGZIP() []byte {
 }
 
 var file_Protocol_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_Protocol_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_Protocol_proto_goTypes = []interface{}{
-	(ProtocolName)(0), // 0: metadata.ProtocolName
-	(*Protocol)(nil),  // 1: metadata.Protocol
+	(Protocol)(0), // 0: metadata.Protocol
 }
 var file_Protocol_proto_depIdxs = []int32{
-	0, // 0: metadata.Protocol.Name:type_name -> metadata.ProtocolName
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // [0:0] is the sub-list for method output_type
+	0, // [0:0] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_Protocol_proto_init() }
@@ -165,34 +102,19 @@ func file_Protocol_proto_init() {
 	if File_Protocol_proto != nil {
 		return
 	}
-	if !protoimpl.UnsafeEnabled {
-		file_Protocol_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Protocol); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Protocol_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   1,
+			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_Protocol_proto_goTypes,
 		DependencyIndexes: file_Protocol_proto_depIdxs,
 		EnumInfos:         file_Protocol_proto_enumTypes,
-		MessageInfos:      file_Protocol_proto_msgTypes,
 	}.Build()
 	File_Protocol_proto = out.File
 	file_Protocol_proto_rawDesc = nil

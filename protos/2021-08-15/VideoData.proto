@@ -8,7 +8,7 @@ import "Monetization.proto";
 
 message VideoData {
     Address CreatorAddress = 1;
-    string CreatedDate = 2;
+    int64 CreatedDate = 2;
     string VideoTitle = 3;
     string VideoDescription = 4;
     Link VideoPoster = 5;

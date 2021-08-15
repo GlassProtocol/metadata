@@ -2,12 +2,6 @@ syntax = "proto3";
 package metadata;
 option go_package = "/;metadata";
 
-import "MonetizationTypes.proto";
-import "Protocol.proto";
-
 message Tips {
-    string Version = 1;
-    MonetizationTypes MonetizationType = 2;
-    Protocol Protocol = 3;
-    string RecipientAddress = 4;
+    string RecipientAddress = 1;
 }

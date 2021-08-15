@@ -2,11 +2,7 @@ syntax = "proto3";
 package metadata;
 option go_package = "/;metadata";
 
-message Protocol {
-    ProtocolName Name = 1;
-    string Network = 2;
-}
 
-enum ProtocolName {
-    SOLANA = 0;
+enum Protocol {
+    SOLANA_MAINNET = 0;
 }

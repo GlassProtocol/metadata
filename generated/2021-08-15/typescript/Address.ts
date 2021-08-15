@@ -1,24 +1,24 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import { Protocol } from "./Protocol";
+import { Protocol, protocolFromJSON, protocolToJSON } from "./Protocol";
 
 export const protobufPackage = "metadata";
 
 export interface Address {
   Address: string;
-  Protocol: Protocol | undefined;
+  Protocol: Protocol;
 }
 
-const baseAddress: object = { Address: "" };
+const baseAddress: object = { Address: "", Protocol: 0 };
 
 export const Address = {
   encode(message: Address, writer: Writer = Writer.create()): Writer {
     if (message.Address !== "") {
       writer.uint32(10).string(message.Address);
     }
-    if (message.Protocol !== undefined) {
-      Protocol.encode(message.Protocol, writer.uint32(18).fork()).ldelim();
+    if (message.Protocol !== 0) {
+      writer.uint32(16).int32(message.Protocol);
     }
     return writer;
   },
@@ -34,7 +34,7 @@ export const Address = {
           message.Address = reader.string();
           break;
         case 2:
-          message.Protocol = Protocol.decode(reader, reader.uint32());
+          message.Protocol = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -52,9 +52,9 @@ export const Address = {
       message.Address = "";
     }
     if (object.Protocol !== undefined && object.Protocol !== null) {
-      message.Protocol = Protocol.fromJSON(object.Protocol);
+      message.Protocol = protocolFromJSON(object.Protocol);
     } else {
-      message.Protocol = undefined;
+      message.Protocol = 0;
     }
     return message;
   },
@@ -63,9 +63,7 @@ export const Address = {
     const obj: any = {};
     message.Address !== undefined && (obj.Address = message.Address);
     message.Protocol !== undefined &&
-      (obj.Protocol = message.Protocol
-        ? Protocol.toJSON(message.Protocol)
-        : undefined);
+      (obj.Protocol = protocolToJSON(message.Protocol));
     return obj;
   },
 
@@ -77,9 +75,9 @@ export const Address = {
       message.Address = "";
     }
     if (object.Protocol !== undefined && object.Protocol !== null) {
-      message.Protocol = Protocol.fromPartial(object.Protocol);
+      message.Protocol = object.Protocol;
     } else {
-      message.Protocol = undefined;
+      message.Protocol = 0;
     }
     return message;
   },

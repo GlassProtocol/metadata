@@ -9,7 +9,7 @@ export const protobufPackage = "metadata";
 
 export interface VideoData {
   CreatorAddress: Address | undefined;
-  CreatedDate: string;
+  CreatedDate: number;
   VideoTitle: string;
   VideoDescription: string;
   VideoPoster: Link | undefined;
@@ -18,7 +18,7 @@ export interface VideoData {
 }
 
 const baseVideoData: object = {
-  CreatedDate: "",
+  CreatedDate: 0,
   VideoTitle: "",
   VideoDescription: "",
 };
@@ -28,8 +28,8 @@ export const VideoData = {
     if (message.CreatorAddress !== undefined) {
       Address.encode(message.CreatorAddress, writer.uint32(10).fork()).ldelim();
     }
-    if (message.CreatedDate !== "") {
-      writer.uint32(18).string(message.CreatedDate);
+    if (message.CreatedDate !== 0) {
+      writer.uint32(16).int64(message.CreatedDate);
     }
     if (message.VideoTitle !== "") {
       writer.uint32(26).string(message.VideoTitle);
@@ -61,7 +61,7 @@ export const VideoData = {
           message.CreatorAddress = Address.decode(reader, reader.uint32());
           break;
         case 2:
-          message.CreatedDate = reader.string();
+          message.CreatedDate = longToNumber(reader.int64() as Long);
           break;
         case 3:
           message.VideoTitle = reader.string();
@@ -97,9 +97,9 @@ export const VideoData = {
       message.CreatorAddress = undefined;
     }
     if (object.CreatedDate !== undefined && object.CreatedDate !== null) {
-      message.CreatedDate = String(object.CreatedDate);
+      message.CreatedDate = Number(object.CreatedDate);
     } else {
-      message.CreatedDate = "";
+      message.CreatedDate = 0;
     }
     if (object.VideoTitle !== undefined && object.VideoTitle !== null) {
       message.VideoTitle = String(object.VideoTitle);
@@ -172,7 +172,7 @@ export const VideoData = {
     if (object.CreatedDate !== undefined && object.CreatedDate !== null) {
       message.CreatedDate = object.CreatedDate;
     } else {
-      message.CreatedDate = "";
+      message.CreatedDate = 0;
     }
     if (object.VideoTitle !== undefined && object.VideoTitle !== null) {
       message.VideoTitle = object.VideoTitle;
@@ -206,6 +206,16 @@ export const VideoData = {
   },
 };
 
+declare var self: any | undefined;
+declare var window: any | undefined;
+var globalThis: any = (() => {
+  if (typeof globalThis !== "undefined") return globalThis;
+  if (typeof self !== "undefined") return self;
+  if (typeof window !== "undefined") return window;
+  if (typeof global !== "undefined") return global;
+  throw "Unable to locate global object";
+})();
+
 type Builtin =
   | Date
   | Function
@@ -223,6 +233,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
+}
 
 // If you get a compile-error about 'Constructor<Long> and ... have no overlap',
 // add '--ts_proto_opt=esModuleInterop=true' as a flag when calling 'protoc'.
