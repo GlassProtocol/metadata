@@ -20,13 +20,56 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type ProtocolName int32
+
+const (
+	ProtocolName_SOLANA ProtocolName = 0
+)
+
+// Enum value maps for ProtocolName.
+var (
+	ProtocolName_name = map[int32]string{
+		0: "SOLANA",
+	}
+	ProtocolName_value = map[string]int32{
+		"SOLANA": 0,
+	}
+)
+
+func (x ProtocolName) Enum() *ProtocolName {
+	p := new(ProtocolName)
+	*p = x
+	return p
+}
+
+func (x ProtocolName) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ProtocolName) Descriptor() protoreflect.EnumDescriptor {
+	return file_Protocol_proto_enumTypes[0].Descriptor()
+}
+
+func (ProtocolName) Type() protoreflect.EnumType {
+	return &file_Protocol_proto_enumTypes[0]
+}
+
+func (x ProtocolName) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ProtocolName.Descriptor instead.
+func (ProtocolName) EnumDescriptor() ([]byte, []int) {
+	return file_Protocol_proto_rawDescGZIP(), []int{0}
+}
+
 type Protocol struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name    string `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
-	Network string `protobuf:"bytes,2,opt,name=Network,proto3" json:"Network,omitempty"`
+	Name    ProtocolName `protobuf:"varint,1,opt,name=Name,proto3,enum=metadata.ProtocolName" json:"Name,omitempty"`
+	Network string       `protobuf:"bytes,2,opt,name=Network,proto3" json:"Network,omitempty"`
 }
 
 func (x *Protocol) Reset() {
@@ -61,11 +104,11 @@ func (*Protocol) Descriptor() ([]byte, []int) {
 	return file_Protocol_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Protocol) GetName() string {
+func (x *Protocol) GetName() ProtocolName {
 	if x != nil {
 		return x.Name
 	}
-	return ""
+	return ProtocolName_SOLANA
 }
 
 func (x *Protocol) GetNetwork() string {
@@ -79,12 +122,15 @@ var File_Protocol_proto protoreflect.FileDescriptor
 
 var file_Protocol_proto_rawDesc = []byte{
 	0x0a, 0x0e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x12, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x22, 0x38, 0x0a, 0x08, 0x50, 0x72,
-	0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x4e, 0x65,
-	0x74, 0x77, 0x6f, 0x72, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x4e, 0x65, 0x74,
-	0x77, 0x6f, 0x72, 0x6b, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x3b, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61,
-	0x74, 0x61, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x22, 0x50, 0x0a, 0x08, 0x50, 0x72,
+	0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x12, 0x2a, 0x0a, 0x04, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0e, 0x32, 0x16, 0x2e, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x2e,
+	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x52, 0x04, 0x4e, 0x61,
+	0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x4e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x07, 0x4e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x2a, 0x1a, 0x0a, 0x0c,
+	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x0a, 0x0a, 0x06,
+	0x53, 0x4f, 0x4c, 0x41, 0x4e, 0x41, 0x10, 0x00, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x3b, 0x6d, 0x65,
+	0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -99,16 +145,19 @@ func file_Protocol_proto_rawDescGZIP() []byte {
 	return file_Protocol_proto_rawDescData
 }
 
+var file_Protocol_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_Protocol_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_Protocol_proto_goTypes = []interface{}{
-	(*Protocol)(nil), // 0: metadata.Protocol
+	(ProtocolName)(0), // 0: metadata.ProtocolName
+	(*Protocol)(nil),  // 1: metadata.Protocol
 }
 var file_Protocol_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: metadata.Protocol.Name:type_name -> metadata.ProtocolName
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_Protocol_proto_init() }
@@ -135,13 +184,14 @@ func file_Protocol_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Protocol_proto_rawDesc,
-			NumEnums:      0,
+			NumEnums:      1,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_Protocol_proto_goTypes,
 		DependencyIndexes: file_Protocol_proto_depIdxs,
+		EnumInfos:         file_Protocol_proto_enumTypes,
 		MessageInfos:      file_Protocol_proto_msgTypes,
 	}.Build()
 	File_Protocol_proto = out.File

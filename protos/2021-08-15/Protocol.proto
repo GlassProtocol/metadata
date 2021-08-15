@@ -3,6 +3,10 @@ package metadata;
 option go_package = "/;metadata";
 
 message Protocol {
-    string Name = 1;
+    ProtocolName Name = 1;
     string Network = 2;
+}
+
+enum ProtocolName {
+    SOLANA = 0;
 }
