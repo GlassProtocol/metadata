@@ -7,8 +7,7 @@ import "MonetizationTypes.proto";
 import "Protocol.proto";
 
 message Monetization {
-    string Version = 1;
-    MonetizationTypes MonetizationType = 2;
-    Protocol Protocol = 3;
-    Link Metadata = 4;
+    MonetizationTypes MonetizationType = 1;
+    Protocol Protocol = 2;
+    Link Metadata = 3;
 }

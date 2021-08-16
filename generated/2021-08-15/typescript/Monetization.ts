@@ -12,31 +12,23 @@ import { Link } from "./Link";
 export const protobufPackage = "metadata";
 
 export interface Monetization {
-  Version: string;
   MonetizationType: MonetizationTypes;
   Protocol: Protocol;
   Metadata: Link | undefined;
 }
 
-const baseMonetization: object = {
-  Version: "",
-  MonetizationType: 0,
-  Protocol: 0,
-};
+const baseMonetization: object = { MonetizationType: 0, Protocol: 0 };
 
 export const Monetization = {
   encode(message: Monetization, writer: Writer = Writer.create()): Writer {
-    if (message.Version !== "") {
-      writer.uint32(10).string(message.Version);
-    }
     if (message.MonetizationType !== 0) {
-      writer.uint32(16).int32(message.MonetizationType);
+      writer.uint32(8).int32(message.MonetizationType);
     }
     if (message.Protocol !== 0) {
-      writer.uint32(24).int32(message.Protocol);
+      writer.uint32(16).int32(message.Protocol);
     }
     if (message.Metadata !== undefined) {
-      Link.encode(message.Metadata, writer.uint32(34).fork()).ldelim();
+      Link.encode(message.Metadata, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -49,15 +41,12 @@ export const Monetization = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.Version = reader.string();
-          break;
-        case 2:
           message.MonetizationType = reader.int32() as any;
           break;
-        case 3:
+        case 2:
           message.Protocol = reader.int32() as any;
           break;
-        case 4:
+        case 3:
           message.Metadata = Link.decode(reader, reader.uint32());
           break;
         default:
@@ -70,11 +59,6 @@ export const Monetization = {
 
   fromJSON(object: any): Monetization {
     const message = { ...baseMonetization } as Monetization;
-    if (object.Version !== undefined && object.Version !== null) {
-      message.Version = String(object.Version);
-    } else {
-      message.Version = "";
-    }
     if (
       object.MonetizationType !== undefined &&
       object.MonetizationType !== null
@@ -100,7 +84,6 @@ export const Monetization = {
 
   toJSON(message: Monetization): unknown {
     const obj: any = {};
-    message.Version !== undefined && (obj.Version = message.Version);
     message.MonetizationType !== undefined &&
       (obj.MonetizationType = monetizationTypesToJSON(
         message.MonetizationType
@@ -116,11 +99,6 @@ export const Monetization = {
 
   fromPartial(object: DeepPartial<Monetization>): Monetization {
     const message = { ...baseMonetization } as Monetization;
-    if (object.Version !== undefined && object.Version !== null) {
-      message.Version = object.Version;
-    } else {
-      message.Version = "";
-    }
     if (
       object.MonetizationType !== undefined &&
       object.MonetizationType !== null
