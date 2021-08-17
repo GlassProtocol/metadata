@@ -5,4 +5,6 @@ option go_package = "/;metadata";
 
 enum Protocol {
     SOLANA_MAINNET = 0;
+    ETH_MAINNET = 1;
+    ETH_RINKEBY = 2;
 }

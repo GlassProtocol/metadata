@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import * as Long from "long";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 import { Protocol, protocolFromJSON, protocolToJSON } from "./Protocol";
 
 export const protobufPackage = "metadata";
@@ -13,7 +13,10 @@ export interface Address {
 const baseAddress: object = { Address: "", Protocol: 0 };
 
 export const Address = {
-  encode(message: Address, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: Address,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.Address !== "") {
       writer.uint32(10).string(message.Address);
     }
@@ -23,8 +26,8 @@ export const Address = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): Address {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): Address {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseAddress } as Address;
     while (reader.pos < end) {
@@ -101,9 +104,7 @@ export type DeepPartial<T> = T extends Builtin
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
-// If you get a compile-error about 'Constructor<Long> and ... have no overlap',
-// add '--ts_proto_opt=esModuleInterop=true' as a flag when calling 'protoc'.
-if (util.Long !== Long) {
-  util.Long = Long as any;
-  configure();
+if (_m0.util.Long !== Long) {
+  _m0.util.Long = Long as any;
+  _m0.configure();
 }

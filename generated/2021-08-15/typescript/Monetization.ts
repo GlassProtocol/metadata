@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import * as Long from "long";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 import {
   MonetizationTypes,
   monetizationTypesFromJSON,
@@ -20,7 +20,10 @@ export interface Monetization {
 const baseMonetization: object = { MonetizationType: 0, Protocol: 0 };
 
 export const Monetization = {
-  encode(message: Monetization, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: Monetization,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.MonetizationType !== 0) {
       writer.uint32(8).int32(message.MonetizationType);
     }
@@ -33,8 +36,8 @@ export const Monetization = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): Monetization {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): Monetization {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseMonetization } as Monetization;
     while (reader.pos < end) {
@@ -139,9 +142,7 @@ export type DeepPartial<T> = T extends Builtin
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
-// If you get a compile-error about 'Constructor<Long> and ... have no overlap',
-// add '--ts_proto_opt=esModuleInterop=true' as a flag when calling 'protoc'.
-if (util.Long !== Long) {
-  util.Long = Long as any;
-  configure();
+if (_m0.util.Long !== Long) {
+  _m0.util.Long = Long as any;
+  _m0.configure();
 }
