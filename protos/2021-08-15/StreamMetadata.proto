@@ -1,0 +1,11 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "StreamData.proto";
+
+message StreamMetadata {
+  string Version = 1;
+  StreamData Data = 2;
+  repeated string Signatures = 3;
+}
