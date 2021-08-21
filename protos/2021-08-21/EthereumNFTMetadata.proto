@@ -3,7 +3,7 @@ package metadata;
 option go_package = "/;metadata";
 
 message EthereumNFTMetadata {
-    string Image = 1;
-    string Name = 2;
-    string Description = 3;
+    string image = 1;
+    string name = 2;
+    string description = 3;
 }

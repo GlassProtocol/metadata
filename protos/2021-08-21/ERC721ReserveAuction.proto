@@ -4,7 +4,6 @@ option go_package = "/;metadata";
 
 message ERC721ReserveAuction {
     string AuctionContractAddress = 1;
-    string AuctionID = 2;
-    string ERC721ContractAddress = 3;
-    string ERC721TokenID = 4;
+    string ERC721ContractAddress = 2;
+    string ERC721TokenID = 3;
 }
