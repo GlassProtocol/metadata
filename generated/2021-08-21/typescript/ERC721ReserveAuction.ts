@@ -6,14 +6,12 @@ export const protobufPackage = "metadata";
 
 export interface ERC721ReserveAuction {
   AuctionContractAddress: string;
-  AuctionID: string;
   ERC721ContractAddress: string;
   ERC721TokenID: string;
 }
 
 const baseERC721ReserveAuction: object = {
   AuctionContractAddress: "",
-  AuctionID: "",
   ERC721ContractAddress: "",
   ERC721TokenID: "",
 };
@@ -26,14 +24,11 @@ export const ERC721ReserveAuction = {
     if (message.AuctionContractAddress !== "") {
       writer.uint32(10).string(message.AuctionContractAddress);
     }
-    if (message.AuctionID !== "") {
-      writer.uint32(18).string(message.AuctionID);
-    }
     if (message.ERC721ContractAddress !== "") {
-      writer.uint32(26).string(message.ERC721ContractAddress);
+      writer.uint32(18).string(message.ERC721ContractAddress);
     }
     if (message.ERC721TokenID !== "") {
-      writer.uint32(34).string(message.ERC721TokenID);
+      writer.uint32(26).string(message.ERC721TokenID);
     }
     return writer;
   },
@@ -52,12 +47,9 @@ export const ERC721ReserveAuction = {
           message.AuctionContractAddress = reader.string();
           break;
         case 2:
-          message.AuctionID = reader.string();
-          break;
-        case 3:
           message.ERC721ContractAddress = reader.string();
           break;
-        case 4:
+        case 3:
           message.ERC721TokenID = reader.string();
           break;
         default:
@@ -77,11 +69,6 @@ export const ERC721ReserveAuction = {
       message.AuctionContractAddress = String(object.AuctionContractAddress);
     } else {
       message.AuctionContractAddress = "";
-    }
-    if (object.AuctionID !== undefined && object.AuctionID !== null) {
-      message.AuctionID = String(object.AuctionID);
-    } else {
-      message.AuctionID = "";
     }
     if (
       object.ERC721ContractAddress !== undefined &&
@@ -103,7 +90,6 @@ export const ERC721ReserveAuction = {
     const obj: any = {};
     message.AuctionContractAddress !== undefined &&
       (obj.AuctionContractAddress = message.AuctionContractAddress);
-    message.AuctionID !== undefined && (obj.AuctionID = message.AuctionID);
     message.ERC721ContractAddress !== undefined &&
       (obj.ERC721ContractAddress = message.ERC721ContractAddress);
     message.ERC721TokenID !== undefined &&
@@ -120,11 +106,6 @@ export const ERC721ReserveAuction = {
       message.AuctionContractAddress = object.AuctionContractAddress;
     } else {
       message.AuctionContractAddress = "";
-    }
-    if (object.AuctionID !== undefined && object.AuctionID !== null) {
-      message.AuctionID = object.AuctionID;
-    } else {
-      message.AuctionID = "";
     }
     if (
       object.ERC721ContractAddress !== undefined &&

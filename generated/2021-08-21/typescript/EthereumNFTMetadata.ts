@@ -5,15 +5,15 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "metadata";
 
 export interface EthereumNFTMetadata {
-  Image: string;
-  Name: string;
-  Description: string;
+  image: string;
+  name: string;
+  description: string;
 }
 
 const baseEthereumNFTMetadata: object = {
-  Image: "",
-  Name: "",
-  Description: "",
+  image: "",
+  name: "",
+  description: "",
 };
 
 export const EthereumNFTMetadata = {
@@ -21,14 +21,14 @@ export const EthereumNFTMetadata = {
     message: EthereumNFTMetadata,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.Image !== "") {
-      writer.uint32(10).string(message.Image);
+    if (message.image !== "") {
+      writer.uint32(10).string(message.image);
     }
-    if (message.Name !== "") {
-      writer.uint32(18).string(message.Name);
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
     }
-    if (message.Description !== "") {
-      writer.uint32(26).string(message.Description);
+    if (message.description !== "") {
+      writer.uint32(26).string(message.description);
     }
     return writer;
   },
@@ -41,13 +41,13 @@ export const EthereumNFTMetadata = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.Image = reader.string();
+          message.image = reader.string();
           break;
         case 2:
-          message.Name = reader.string();
+          message.name = reader.string();
           break;
         case 3:
-          message.Description = reader.string();
+          message.description = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -59,49 +59,49 @@ export const EthereumNFTMetadata = {
 
   fromJSON(object: any): EthereumNFTMetadata {
     const message = { ...baseEthereumNFTMetadata } as EthereumNFTMetadata;
-    if (object.Image !== undefined && object.Image !== null) {
-      message.Image = String(object.Image);
+    if (object.image !== undefined && object.image !== null) {
+      message.image = String(object.image);
     } else {
-      message.Image = "";
+      message.image = "";
     }
-    if (object.Name !== undefined && object.Name !== null) {
-      message.Name = String(object.Name);
+    if (object.name !== undefined && object.name !== null) {
+      message.name = String(object.name);
     } else {
-      message.Name = "";
+      message.name = "";
     }
-    if (object.Description !== undefined && object.Description !== null) {
-      message.Description = String(object.Description);
+    if (object.description !== undefined && object.description !== null) {
+      message.description = String(object.description);
     } else {
-      message.Description = "";
+      message.description = "";
     }
     return message;
   },
 
   toJSON(message: EthereumNFTMetadata): unknown {
     const obj: any = {};
-    message.Image !== undefined && (obj.Image = message.Image);
-    message.Name !== undefined && (obj.Name = message.Name);
-    message.Description !== undefined &&
-      (obj.Description = message.Description);
+    message.image !== undefined && (obj.image = message.image);
+    message.name !== undefined && (obj.name = message.name);
+    message.description !== undefined &&
+      (obj.description = message.description);
     return obj;
   },
 
   fromPartial(object: DeepPartial<EthereumNFTMetadata>): EthereumNFTMetadata {
     const message = { ...baseEthereumNFTMetadata } as EthereumNFTMetadata;
-    if (object.Image !== undefined && object.Image !== null) {
-      message.Image = object.Image;
+    if (object.image !== undefined && object.image !== null) {
+      message.image = object.image;
     } else {
-      message.Image = "";
+      message.image = "";
     }
-    if (object.Name !== undefined && object.Name !== null) {
-      message.Name = object.Name;
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
     } else {
-      message.Name = "";
+      message.name = "";
     }
-    if (object.Description !== undefined && object.Description !== null) {
-      message.Description = object.Description;
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
     } else {
-      message.Description = "";
+      message.description = "";
     }
     return message;
   },
