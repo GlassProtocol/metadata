@@ -7,6 +7,7 @@ export const protobufPackage = "metadata";
 export enum MonetizationTypes {
   NONE = 0,
   TIPS = 1,
+  ERC721_RESERVE_AUCTION = 2,
   UNRECOGNIZED = -1,
 }
 
@@ -18,6 +19,9 @@ export function monetizationTypesFromJSON(object: any): MonetizationTypes {
     case 1:
     case "TIPS":
       return MonetizationTypes.TIPS;
+    case 2:
+    case "ERC721_RESERVE_AUCTION":
+      return MonetizationTypes.ERC721_RESERVE_AUCTION;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -31,6 +35,8 @@ export function monetizationTypesToJSON(object: MonetizationTypes): string {
       return "NONE";
     case MonetizationTypes.TIPS:
       return "TIPS";
+    case MonetizationTypes.ERC721_RESERVE_AUCTION:
+      return "ERC721_RESERVE_AUCTION";
     default:
       return "UNKNOWN";
   }
