@@ -8,6 +8,7 @@ export enum MonetizationTypes {
   NONE = 0,
   TIPS = 1,
   ERC721_RESERVE_AUCTION = 2,
+  ETH_EDITIONS = 3,
   UNRECOGNIZED = -1,
 }
 
@@ -22,6 +23,9 @@ export function monetizationTypesFromJSON(object: any): MonetizationTypes {
     case 2:
     case "ERC721_RESERVE_AUCTION":
       return MonetizationTypes.ERC721_RESERVE_AUCTION;
+    case 3:
+    case "ETH_EDITIONS":
+      return MonetizationTypes.ETH_EDITIONS;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -37,6 +41,8 @@ export function monetizationTypesToJSON(object: MonetizationTypes): string {
       return "TIPS";
     case MonetizationTypes.ERC721_RESERVE_AUCTION:
       return "ERC721_RESERVE_AUCTION";
+    case MonetizationTypes.ETH_EDITIONS:
+      return "ETH_EDITIONS";
     default:
       return "UNKNOWN";
   }

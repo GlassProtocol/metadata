@@ -6,4 +6,5 @@ enum MonetizationTypes {
     NONE = 0;
     TIPS = 1;
     ERC721_RESERVE_AUCTION = 2;
+    ETH_EDITIONS = 3;
 }
