@@ -14,4 +14,7 @@ message VideoData {
     Link VideoPoster = 5;
     Link VideoData = 6;
     repeated Monetization Monetization = 7;
+    bool Loop = 8;
+    int64 VideoWidth = 9;
+    int64 VideoHeight = 10;
 }

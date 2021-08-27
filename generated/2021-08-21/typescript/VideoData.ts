@@ -15,12 +15,18 @@ export interface VideoData {
   VideoPoster: Link | undefined;
   VideoData: Link | undefined;
   Monetization: Monetization[];
+  Loop: boolean;
+  VideoWidth: number;
+  VideoHeight: number;
 }
 
 const baseVideoData: object = {
   CreatedDate: 0,
   VideoTitle: "",
   VideoDescription: "",
+  Loop: false,
+  VideoWidth: 0,
+  VideoHeight: 0,
 };
 
 export const VideoData = {
@@ -48,6 +54,15 @@ export const VideoData = {
     }
     for (const v of message.Monetization) {
       Monetization.encode(v!, writer.uint32(58).fork()).ldelim();
+    }
+    if (message.Loop === true) {
+      writer.uint32(64).bool(message.Loop);
+    }
+    if (message.VideoWidth !== 0) {
+      writer.uint32(72).int64(message.VideoWidth);
+    }
+    if (message.VideoHeight !== 0) {
+      writer.uint32(80).int64(message.VideoHeight);
     }
     return writer;
   },
@@ -82,6 +97,15 @@ export const VideoData = {
           message.Monetization.push(
             Monetization.decode(reader, reader.uint32())
           );
+          break;
+        case 8:
+          message.Loop = reader.bool();
+          break;
+        case 9:
+          message.VideoWidth = longToNumber(reader.int64() as Long);
+          break;
+        case 10:
+          message.VideoHeight = longToNumber(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -132,6 +156,21 @@ export const VideoData = {
         message.Monetization.push(Monetization.fromJSON(e));
       }
     }
+    if (object.Loop !== undefined && object.Loop !== null) {
+      message.Loop = Boolean(object.Loop);
+    } else {
+      message.Loop = false;
+    }
+    if (object.VideoWidth !== undefined && object.VideoWidth !== null) {
+      message.VideoWidth = Number(object.VideoWidth);
+    } else {
+      message.VideoWidth = 0;
+    }
+    if (object.VideoHeight !== undefined && object.VideoHeight !== null) {
+      message.VideoHeight = Number(object.VideoHeight);
+    } else {
+      message.VideoHeight = 0;
+    }
     return message;
   },
 
@@ -161,6 +200,10 @@ export const VideoData = {
     } else {
       obj.Monetization = [];
     }
+    message.Loop !== undefined && (obj.Loop = message.Loop);
+    message.VideoWidth !== undefined && (obj.VideoWidth = message.VideoWidth);
+    message.VideoHeight !== undefined &&
+      (obj.VideoHeight = message.VideoHeight);
     return obj;
   },
 
@@ -204,6 +247,21 @@ export const VideoData = {
       for (const e of object.Monetization) {
         message.Monetization.push(Monetization.fromPartial(e));
       }
+    }
+    if (object.Loop !== undefined && object.Loop !== null) {
+      message.Loop = object.Loop;
+    } else {
+      message.Loop = false;
+    }
+    if (object.VideoWidth !== undefined && object.VideoWidth !== null) {
+      message.VideoWidth = object.VideoWidth;
+    } else {
+      message.VideoWidth = 0;
+    }
+    if (object.VideoHeight !== undefined && object.VideoHeight !== null) {
+      message.VideoHeight = object.VideoHeight;
+    } else {
+      message.VideoHeight = 0;
     }
     return message;
   },
