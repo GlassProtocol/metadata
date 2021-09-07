@@ -3,7 +3,6 @@ package metadata;
 option go_package = "/;metadata";
 
 message FungibleTokenGate {
-    bool Fungible = 1;
-    string TokenAddress = 2;
-    string Quantity = 3;
+    string TokenAddress = 1;
+    string Quantity = 2;
 }

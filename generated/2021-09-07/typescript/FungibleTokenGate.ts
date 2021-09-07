@@ -5,30 +5,22 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "metadata";
 
 export interface FungibleTokenGate {
-  Fungible: boolean;
   TokenAddress: string;
   Quantity: string;
 }
 
-const baseFungibleTokenGate: object = {
-  Fungible: false,
-  TokenAddress: "",
-  Quantity: "",
-};
+const baseFungibleTokenGate: object = { TokenAddress: "", Quantity: "" };
 
 export const FungibleTokenGate = {
   encode(
     message: FungibleTokenGate,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.Fungible === true) {
-      writer.uint32(8).bool(message.Fungible);
-    }
     if (message.TokenAddress !== "") {
-      writer.uint32(18).string(message.TokenAddress);
+      writer.uint32(10).string(message.TokenAddress);
     }
     if (message.Quantity !== "") {
-      writer.uint32(26).string(message.Quantity);
+      writer.uint32(18).string(message.Quantity);
     }
     return writer;
   },
@@ -41,12 +33,9 @@ export const FungibleTokenGate = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.Fungible = reader.bool();
-          break;
-        case 2:
           message.TokenAddress = reader.string();
           break;
-        case 3:
+        case 2:
           message.Quantity = reader.string();
           break;
         default:
@@ -59,11 +48,6 @@ export const FungibleTokenGate = {
 
   fromJSON(object: any): FungibleTokenGate {
     const message = { ...baseFungibleTokenGate } as FungibleTokenGate;
-    if (object.Fungible !== undefined && object.Fungible !== null) {
-      message.Fungible = Boolean(object.Fungible);
-    } else {
-      message.Fungible = false;
-    }
     if (object.TokenAddress !== undefined && object.TokenAddress !== null) {
       message.TokenAddress = String(object.TokenAddress);
     } else {
@@ -79,7 +63,6 @@ export const FungibleTokenGate = {
 
   toJSON(message: FungibleTokenGate): unknown {
     const obj: any = {};
-    message.Fungible !== undefined && (obj.Fungible = message.Fungible);
     message.TokenAddress !== undefined &&
       (obj.TokenAddress = message.TokenAddress);
     message.Quantity !== undefined && (obj.Quantity = message.Quantity);
@@ -88,11 +71,6 @@ export const FungibleTokenGate = {
 
   fromPartial(object: DeepPartial<FungibleTokenGate>): FungibleTokenGate {
     const message = { ...baseFungibleTokenGate } as FungibleTokenGate;
-    if (object.Fungible !== undefined && object.Fungible !== null) {
-      message.Fungible = object.Fungible;
-    } else {
-      message.Fungible = false;
-    }
     if (object.TokenAddress !== undefined && object.TokenAddress !== null) {
       message.TokenAddress = object.TokenAddress;
     } else {
