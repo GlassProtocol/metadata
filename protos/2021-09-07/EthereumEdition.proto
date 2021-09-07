@@ -1,0 +1,8 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+message EthereumEdition {
+    string EditionContract = 1;
+    string EditionId = 2;
+}

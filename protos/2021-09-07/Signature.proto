@@ -1,0 +1,10 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "Address.proto";
+
+message Signature {
+    Address SigningAddress = 1;
+    string Signature = 2;
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+message ERC721ReserveAuction {
+    string AuctionContractAddress = 1;
+    string ERC721ContractAddress = 2;
+    string ERC721TokenID = 3;
+}

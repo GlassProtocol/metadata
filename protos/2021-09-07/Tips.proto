@@ -1,0 +1,7 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+message Tips {
+    string RecipientAddress = 1;
+}

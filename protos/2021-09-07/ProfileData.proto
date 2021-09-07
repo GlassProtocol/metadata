@@ -1,0 +1,15 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "Address.proto";
+import "Link.proto";
+
+message ProfileData {
+    repeated Address Addresses = 1;
+    string DisplayName = 2;
+    Link ProfilePicture = 3;
+    string Biography = 4;
+    string Discord = 5;
+    string Twitter = 6;
+}
