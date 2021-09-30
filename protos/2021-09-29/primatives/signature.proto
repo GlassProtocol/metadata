@@ -1,0 +1,10 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "primatives/address.proto";
+
+message signature {
+    address signing_address = 1;
+    string signature = 2;
+}

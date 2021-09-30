@@ -1,0 +1,12 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "primatives/link.proto";
+
+
+message thumbnail {
+    uint32 height = 1;
+    uint32 width = 2;
+    link source = 3;
+}
