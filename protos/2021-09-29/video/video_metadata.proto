@@ -4,20 +4,19 @@ option go_package = "/;metadata";
 
 import "primatives/link.proto";
 import "video/thumbnail.proto";
-import "video/static.proto";
-import "video/stream.proto";
+import "video/static_video.proto";
+import "video/livestream.proto";
 
 
 
 message video_metadata {
-    string creator_did = 1;
-    int64 created_time = 2;
-    string title = 3;
-    string description = 4;
-    repeated thumbnail thumbnails = 5;
-    link video_source = 6;
+    int64 created_time = 1;
+    string title = 2;
+    string description = 3;
+    repeated thumbnail thumbnails = 4;
+    link video_source = 5;
     oneof video_type {
-        static static = 7;
-        stream stream = 8;
+        static_video static_video = 6;
+        livestream livestream = 7;
     }
 }

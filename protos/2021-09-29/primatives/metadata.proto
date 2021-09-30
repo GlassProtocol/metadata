@@ -8,8 +8,9 @@ import "primatives/signature.proto";
 
 message metadata {
   string version = 1; // version number
-  repeated signature signatures = 2;
+  string did = 2;
+  repeated signature signatures = 3;
   oneof data {
-    video_metadata video = 3;
+    video_metadata video = 4;
   }
 }

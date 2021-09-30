@@ -1,8 +1,0 @@
-syntax = "proto3";
-package metadata;
-option go_package = "/;metadata";
-
-message stream {
-    string stream_id = 1;
-    string session_id = 2;
-}

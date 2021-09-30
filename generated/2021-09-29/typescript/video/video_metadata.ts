@@ -3,24 +3,22 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { thumbnail } from "../video/thumbnail";
 import { link } from "../primatives/link";
-import { static } from "../video/static";
-import { stream } from "../video/stream";
+import { staticVideo } from "../video/static_video";
+import { livestream } from "../video/livestream";
 
 export const protobufPackage = "metadata";
 
 export interface videoMetadata {
-  creatorDid: string;
   createdTime: number;
   title: string;
   description: string;
   thumbnails: thumbnail[];
   videoSource: link | undefined;
-  static: static | undefined;
-  stream: stream | undefined;
+  staticVideo: staticVideo | undefined;
+  livestream: livestream | undefined;
 }
 
 const basevideoMetadata: object = {
-  creatorDid: "",
   createdTime: 0,
   title: "",
   description: "",
@@ -31,29 +29,28 @@ export const videoMetadata = {
     message: videoMetadata,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.creatorDid !== "") {
-      writer.uint32(10).string(message.creatorDid);
-    }
     if (message.createdTime !== 0) {
-      writer.uint32(16).int64(message.createdTime);
+      writer.uint32(8).int64(message.createdTime);
     }
     if (message.title !== "") {
-      writer.uint32(26).string(message.title);
+      writer.uint32(18).string(message.title);
     }
     if (message.description !== "") {
-      writer.uint32(34).string(message.description);
+      writer.uint32(26).string(message.description);
     }
     for (const v of message.thumbnails) {
-      thumbnail.encode(v!, writer.uint32(42).fork()).ldelim();
+      thumbnail.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     if (message.videoSource !== undefined) {
-      link.encode(message.videoSource, writer.uint32(50).fork()).ldelim();
+      link.encode(message.videoSource, writer.uint32(42).fork()).ldelim();
     }
-    if (message.static !== undefined) {
-      static.encode(message.static, writer.uint32(58).fork()).ldelim();
+    if (message.staticVideo !== undefined) {
+      staticVideo
+        .encode(message.staticVideo, writer.uint32(50).fork())
+        .ldelim();
     }
-    if (message.stream !== undefined) {
-      stream.encode(message.stream, writer.uint32(66).fork()).ldelim();
+    if (message.livestream !== undefined) {
+      livestream.encode(message.livestream, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -67,28 +64,25 @@ export const videoMetadata = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creatorDid = reader.string();
-          break;
-        case 2:
           message.createdTime = longToNumber(reader.int64() as Long);
           break;
-        case 3:
+        case 2:
           message.title = reader.string();
           break;
-        case 4:
+        case 3:
           message.description = reader.string();
           break;
-        case 5:
+        case 4:
           message.thumbnails.push(thumbnail.decode(reader, reader.uint32()));
           break;
-        case 6:
+        case 5:
           message.videoSource = link.decode(reader, reader.uint32());
           break;
-        case 7:
-          message.static = static.decode(reader, reader.uint32());
+        case 6:
+          message.staticVideo = staticVideo.decode(reader, reader.uint32());
           break;
-        case 8:
-          message.stream = stream.decode(reader, reader.uint32());
+        case 7:
+          message.livestream = livestream.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -101,11 +95,6 @@ export const videoMetadata = {
   fromJSON(object: any): videoMetadata {
     const message = { ...basevideoMetadata } as videoMetadata;
     message.thumbnails = [];
-    if (object.creatorDid !== undefined && object.creatorDid !== null) {
-      message.creatorDid = String(object.creatorDid);
-    } else {
-      message.creatorDid = "";
-    }
     if (object.createdTime !== undefined && object.createdTime !== null) {
       message.createdTime = Number(object.createdTime);
     } else {
@@ -131,22 +120,21 @@ export const videoMetadata = {
     } else {
       message.videoSource = undefined;
     }
-    if (object.static !== undefined && object.static !== null) {
-      message.static = static.fromJSON(object.static);
+    if (object.staticVideo !== undefined && object.staticVideo !== null) {
+      message.staticVideo = staticVideo.fromJSON(object.staticVideo);
     } else {
-      message.static = undefined;
+      message.staticVideo = undefined;
     }
-    if (object.stream !== undefined && object.stream !== null) {
-      message.stream = stream.fromJSON(object.stream);
+    if (object.livestream !== undefined && object.livestream !== null) {
+      message.livestream = livestream.fromJSON(object.livestream);
     } else {
-      message.stream = undefined;
+      message.livestream = undefined;
     }
     return message;
   },
 
   toJSON(message: videoMetadata): unknown {
     const obj: any = {};
-    message.creatorDid !== undefined && (obj.creatorDid = message.creatorDid);
     message.createdTime !== undefined &&
       (obj.createdTime = message.createdTime);
     message.title !== undefined && (obj.title = message.title);
@@ -163,21 +151,20 @@ export const videoMetadata = {
       (obj.videoSource = message.videoSource
         ? link.toJSON(message.videoSource)
         : undefined);
-    message.static !== undefined &&
-      (obj.static = message.static ? static.toJSON(message.static) : undefined);
-    message.stream !== undefined &&
-      (obj.stream = message.stream ? stream.toJSON(message.stream) : undefined);
+    message.staticVideo !== undefined &&
+      (obj.staticVideo = message.staticVideo
+        ? staticVideo.toJSON(message.staticVideo)
+        : undefined);
+    message.livestream !== undefined &&
+      (obj.livestream = message.livestream
+        ? livestream.toJSON(message.livestream)
+        : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<videoMetadata>): videoMetadata {
     const message = { ...basevideoMetadata } as videoMetadata;
     message.thumbnails = [];
-    if (object.creatorDid !== undefined && object.creatorDid !== null) {
-      message.creatorDid = object.creatorDid;
-    } else {
-      message.creatorDid = "";
-    }
     if (object.createdTime !== undefined && object.createdTime !== null) {
       message.createdTime = object.createdTime;
     } else {
@@ -203,15 +190,15 @@ export const videoMetadata = {
     } else {
       message.videoSource = undefined;
     }
-    if (object.static !== undefined && object.static !== null) {
-      message.static = static.fromPartial(object.static);
+    if (object.staticVideo !== undefined && object.staticVideo !== null) {
+      message.staticVideo = staticVideo.fromPartial(object.staticVideo);
     } else {
-      message.static = undefined;
+      message.staticVideo = undefined;
     }
-    if (object.stream !== undefined && object.stream !== null) {
-      message.stream = stream.fromPartial(object.stream);
+    if (object.livestream !== undefined && object.livestream !== null) {
+      message.livestream = livestream.fromPartial(object.livestream);
     } else {
-      message.stream = undefined;
+      message.livestream = undefined;
     }
     return message;
   },

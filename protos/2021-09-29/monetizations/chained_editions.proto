@@ -5,6 +5,6 @@ option go_package = "/;metadata";
 import "primatives/address.proto";
 
 message chained_editions {
-    address previous_edition = 1;
-    address random_edition = 2;
+    address edition_contract = 1;
+    repeated address mintkey_contracts = 2;
 }

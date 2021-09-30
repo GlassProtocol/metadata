@@ -1,0 +1,16 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "monetizations/tips.proto";
+import "monetizations/fungible_token_gate.proto";
+
+
+message static_video {
+    bool loop = 1;
+    bool audio = 2;
+    oneof monetization {
+        tips tips = 3;
+        fungible_token_gate fungible_token_gate = 4;
+    }
+}

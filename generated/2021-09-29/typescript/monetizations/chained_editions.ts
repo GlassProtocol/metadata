@@ -6,8 +6,8 @@ import { address } from "../primatives/address";
 export const protobufPackage = "metadata";
 
 export interface chainedEditions {
-  previousEdition: address | undefined;
-  randomEdition: address | undefined;
+  editionContract: address | undefined;
+  mintkeyContracts: address[];
 }
 
 const basechainedEditions: object = {};
@@ -17,13 +17,13 @@ export const chainedEditions = {
     message: chainedEditions,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.previousEdition !== undefined) {
+    if (message.editionContract !== undefined) {
       address
-        .encode(message.previousEdition, writer.uint32(10).fork())
+        .encode(message.editionContract, writer.uint32(10).fork())
         .ldelim();
     }
-    if (message.randomEdition !== undefined) {
-      address.encode(message.randomEdition, writer.uint32(18).fork()).ldelim();
+    for (const v of message.mintkeyContracts) {
+      address.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -32,14 +32,17 @@ export const chainedEditions = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...basechainedEditions } as chainedEditions;
+    message.mintkeyContracts = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.previousEdition = address.decode(reader, reader.uint32());
+          message.editionContract = address.decode(reader, reader.uint32());
           break;
         case 2:
-          message.randomEdition = address.decode(reader, reader.uint32());
+          message.mintkeyContracts.push(
+            address.decode(reader, reader.uint32())
+          );
           break;
         default:
           reader.skipType(tag & 7);
@@ -51,49 +54,60 @@ export const chainedEditions = {
 
   fromJSON(object: any): chainedEditions {
     const message = { ...basechainedEditions } as chainedEditions;
+    message.mintkeyContracts = [];
     if (
-      object.previousEdition !== undefined &&
-      object.previousEdition !== null
+      object.editionContract !== undefined &&
+      object.editionContract !== null
     ) {
-      message.previousEdition = address.fromJSON(object.previousEdition);
+      message.editionContract = address.fromJSON(object.editionContract);
     } else {
-      message.previousEdition = undefined;
+      message.editionContract = undefined;
     }
-    if (object.randomEdition !== undefined && object.randomEdition !== null) {
-      message.randomEdition = address.fromJSON(object.randomEdition);
-    } else {
-      message.randomEdition = undefined;
+    if (
+      object.mintkeyContracts !== undefined &&
+      object.mintkeyContracts !== null
+    ) {
+      for (const e of object.mintkeyContracts) {
+        message.mintkeyContracts.push(address.fromJSON(e));
+      }
     }
     return message;
   },
 
   toJSON(message: chainedEditions): unknown {
     const obj: any = {};
-    message.previousEdition !== undefined &&
-      (obj.previousEdition = message.previousEdition
-        ? address.toJSON(message.previousEdition)
+    message.editionContract !== undefined &&
+      (obj.editionContract = message.editionContract
+        ? address.toJSON(message.editionContract)
         : undefined);
-    message.randomEdition !== undefined &&
-      (obj.randomEdition = message.randomEdition
-        ? address.toJSON(message.randomEdition)
-        : undefined);
+    if (message.mintkeyContracts) {
+      obj.mintkeyContracts = message.mintkeyContracts.map((e) =>
+        e ? address.toJSON(e) : undefined
+      );
+    } else {
+      obj.mintkeyContracts = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<chainedEditions>): chainedEditions {
     const message = { ...basechainedEditions } as chainedEditions;
+    message.mintkeyContracts = [];
     if (
-      object.previousEdition !== undefined &&
-      object.previousEdition !== null
+      object.editionContract !== undefined &&
+      object.editionContract !== null
     ) {
-      message.previousEdition = address.fromPartial(object.previousEdition);
+      message.editionContract = address.fromPartial(object.editionContract);
     } else {
-      message.previousEdition = undefined;
+      message.editionContract = undefined;
     }
-    if (object.randomEdition !== undefined && object.randomEdition !== null) {
-      message.randomEdition = address.fromPartial(object.randomEdition);
-    } else {
-      message.randomEdition = undefined;
+    if (
+      object.mintkeyContracts !== undefined &&
+      object.mintkeyContracts !== null
+    ) {
+      for (const e of object.mintkeyContracts) {
+        message.mintkeyContracts.push(address.fromPartial(e));
+      }
     }
     return message;
   },
