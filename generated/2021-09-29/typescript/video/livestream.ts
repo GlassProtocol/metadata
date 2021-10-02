@@ -27,11 +27,11 @@ export const livestream = {
       writer.uint32(18).string(message.sessionId);
     }
     if (message.tips !== undefined) {
-      tips.encode(message.tips, writer.uint32(26).fork()).ldelim();
+      tips.encode(message.tips, writer.uint32(810).fork()).ldelim();
     }
     if (message.fungibleTokenGate !== undefined) {
       fungibleTokenGate
-        .encode(message.fungibleTokenGate, writer.uint32(34).fork())
+        .encode(message.fungibleTokenGate, writer.uint32(818).fork())
         .ldelim();
     }
     return writer;
@@ -50,10 +50,10 @@ export const livestream = {
         case 2:
           message.sessionId = reader.string();
           break;
-        case 3:
+        case 101:
           message.tips = tips.decode(reader, reader.uint32());
           break;
-        case 4:
+        case 102:
           message.fungibleTokenGate = fungibleTokenGate.decode(
             reader,
             reader.uint32()

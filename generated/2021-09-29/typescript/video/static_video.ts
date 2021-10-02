@@ -9,11 +9,18 @@ export const protobufPackage = "metadata";
 export interface staticVideo {
   loop: boolean;
   audio: boolean;
+  height: number;
+  width: number;
   tips: tips | undefined;
   chainedEditions: chainedEditions | undefined;
 }
 
-const basestaticVideo: object = { loop: false, audio: false };
+const basestaticVideo: object = {
+  loop: false,
+  audio: false,
+  height: 0,
+  width: 0,
+};
 
 export const staticVideo = {
   encode(
@@ -26,12 +33,18 @@ export const staticVideo = {
     if (message.audio === true) {
       writer.uint32(16).bool(message.audio);
     }
+    if (message.height !== 0) {
+      writer.uint32(24).uint32(message.height);
+    }
+    if (message.width !== 0) {
+      writer.uint32(32).uint32(message.width);
+    }
     if (message.tips !== undefined) {
-      tips.encode(message.tips, writer.uint32(26).fork()).ldelim();
+      tips.encode(message.tips, writer.uint32(810).fork()).ldelim();
     }
     if (message.chainedEditions !== undefined) {
       chainedEditions
-        .encode(message.chainedEditions, writer.uint32(34).fork())
+        .encode(message.chainedEditions, writer.uint32(818).fork())
         .ldelim();
     }
     return writer;
@@ -51,9 +64,15 @@ export const staticVideo = {
           message.audio = reader.bool();
           break;
         case 3:
-          message.tips = tips.decode(reader, reader.uint32());
+          message.height = reader.uint32();
           break;
         case 4:
+          message.width = reader.uint32();
+          break;
+        case 101:
+          message.tips = tips.decode(reader, reader.uint32());
+          break;
+        case 102:
           message.chainedEditions = chainedEditions.decode(
             reader,
             reader.uint32()
@@ -79,6 +98,16 @@ export const staticVideo = {
     } else {
       message.audio = false;
     }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = Number(object.height);
+    } else {
+      message.height = 0;
+    }
+    if (object.width !== undefined && object.width !== null) {
+      message.width = Number(object.width);
+    } else {
+      message.width = 0;
+    }
     if (object.tips !== undefined && object.tips !== null) {
       message.tips = tips.fromJSON(object.tips);
     } else {
@@ -101,6 +130,8 @@ export const staticVideo = {
     const obj: any = {};
     message.loop !== undefined && (obj.loop = message.loop);
     message.audio !== undefined && (obj.audio = message.audio);
+    message.height !== undefined && (obj.height = message.height);
+    message.width !== undefined && (obj.width = message.width);
     message.tips !== undefined &&
       (obj.tips = message.tips ? tips.toJSON(message.tips) : undefined);
     message.chainedEditions !== undefined &&
@@ -121,6 +152,16 @@ export const staticVideo = {
       message.audio = object.audio;
     } else {
       message.audio = false;
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = object.height;
+    } else {
+      message.height = 0;
+    }
+    if (object.width !== undefined && object.width !== null) {
+      message.width = object.width;
+    } else {
+      message.width = 0;
     }
     if (object.tips !== undefined && object.tips !== null) {
       message.tips = tips.fromPartial(object.tips);

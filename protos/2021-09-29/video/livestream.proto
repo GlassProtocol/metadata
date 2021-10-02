@@ -10,8 +10,10 @@ import "monetizations/fungible_token_gate.proto";
 message livestream {
     string stream_id = 1;
     string session_id = 2;
+
+    
     oneof monetization {
-        tips tips = 3;
-        fungible_token_gate fungible_token_gate = 4;
+        tips tips = 101;
+        fungible_token_gate fungible_token_gate = 102;
     }
 }
