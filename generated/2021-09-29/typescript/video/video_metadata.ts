@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { thumbnail } from "../video/thumbnail";
-import { link } from "../primatives/link";
+import { link } from "../primitives/link";
 import { staticVideo } from "../video/static_video";
 import { livestream } from "../video/livestream";
 

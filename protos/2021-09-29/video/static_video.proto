@@ -3,7 +3,8 @@ package metadata;
 option go_package = "/;metadata";
 
 import "monetizations/tips.proto";
-import "monetizations/fungible_token_gate.proto";
+import "monetizations/chained_editions.proto";
+
 
 
 message static_video {
@@ -11,6 +12,6 @@ message static_video {
     bool audio = 2;
     oneof monetization {
         tips tips = 3;
-        fungible_token_gate fungible_token_gate = 4;
+        chained_editions chained_editions = 4;
     }
 }

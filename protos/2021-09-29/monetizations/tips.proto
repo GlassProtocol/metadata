@@ -2,7 +2,7 @@ syntax = "proto3";
 package metadata;
 option go_package = "/;metadata";
 
-import "primatives/address.proto";
+import "primitives/address.proto";
 
 message tips {
     address address = 1;

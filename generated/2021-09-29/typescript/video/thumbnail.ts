@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { link } from "../primatives/link";
+import { link } from "../primitives/link";
 
 export const protobufPackage = "metadata";
 

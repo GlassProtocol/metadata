@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { tips } from "../monetizations/tips";
-import { chainedEditions } from "../monetizations/chained_editions";
+import { fungibleTokenGate } from "../monetizations/fungible_token_gate";
 
 export const protobufPackage = "metadata";
 
@@ -10,7 +10,7 @@ export interface livestream {
   streamId: string;
   sessionId: string;
   tips: tips | undefined;
-  chainedEditions: chainedEditions | undefined;
+  fungibleTokenGate: fungibleTokenGate | undefined;
 }
 
 const baselivestream: object = { streamId: "", sessionId: "" };
@@ -29,9 +29,9 @@ export const livestream = {
     if (message.tips !== undefined) {
       tips.encode(message.tips, writer.uint32(26).fork()).ldelim();
     }
-    if (message.chainedEditions !== undefined) {
-      chainedEditions
-        .encode(message.chainedEditions, writer.uint32(34).fork())
+    if (message.fungibleTokenGate !== undefined) {
+      fungibleTokenGate
+        .encode(message.fungibleTokenGate, writer.uint32(34).fork())
         .ldelim();
     }
     return writer;
@@ -54,7 +54,7 @@ export const livestream = {
           message.tips = tips.decode(reader, reader.uint32());
           break;
         case 4:
-          message.chainedEditions = chainedEditions.decode(
+          message.fungibleTokenGate = fungibleTokenGate.decode(
             reader,
             reader.uint32()
           );
@@ -85,14 +85,14 @@ export const livestream = {
       message.tips = undefined;
     }
     if (
-      object.chainedEditions !== undefined &&
-      object.chainedEditions !== null
+      object.fungibleTokenGate !== undefined &&
+      object.fungibleTokenGate !== null
     ) {
-      message.chainedEditions = chainedEditions.fromJSON(
-        object.chainedEditions
+      message.fungibleTokenGate = fungibleTokenGate.fromJSON(
+        object.fungibleTokenGate
       );
     } else {
-      message.chainedEditions = undefined;
+      message.fungibleTokenGate = undefined;
     }
     return message;
   },
@@ -103,9 +103,9 @@ export const livestream = {
     message.sessionId !== undefined && (obj.sessionId = message.sessionId);
     message.tips !== undefined &&
       (obj.tips = message.tips ? tips.toJSON(message.tips) : undefined);
-    message.chainedEditions !== undefined &&
-      (obj.chainedEditions = message.chainedEditions
-        ? chainedEditions.toJSON(message.chainedEditions)
+    message.fungibleTokenGate !== undefined &&
+      (obj.fungibleTokenGate = message.fungibleTokenGate
+        ? fungibleTokenGate.toJSON(message.fungibleTokenGate)
         : undefined);
     return obj;
   },
@@ -128,14 +128,14 @@ export const livestream = {
       message.tips = undefined;
     }
     if (
-      object.chainedEditions !== undefined &&
-      object.chainedEditions !== null
+      object.fungibleTokenGate !== undefined &&
+      object.fungibleTokenGate !== null
     ) {
-      message.chainedEditions = chainedEditions.fromPartial(
-        object.chainedEditions
+      message.fungibleTokenGate = fungibleTokenGate.fromPartial(
+        object.fungibleTokenGate
       );
     } else {
-      message.chainedEditions = undefined;
+      message.fungibleTokenGate = undefined;
     }
     return message;
   },

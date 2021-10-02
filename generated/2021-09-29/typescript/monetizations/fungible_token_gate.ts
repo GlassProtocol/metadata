@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { address } from "../primatives/address";
+import { address } from "../primitives/address";
 
 export const protobufPackage = "metadata";
 

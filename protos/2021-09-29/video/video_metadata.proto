@@ -2,7 +2,7 @@ syntax = "proto3";
 package metadata;
 option go_package = "/;metadata";
 
-import "primatives/link.proto";
+import "primitives/link.proto";
 import "video/thumbnail.proto";
 import "video/static_video.proto";
 import "video/livestream.proto";

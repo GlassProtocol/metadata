@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { tips } from "../monetizations/tips";
-import { fungibleTokenGate } from "../monetizations/fungible_token_gate";
+import { chainedEditions } from "../monetizations/chained_editions";
 
 export const protobufPackage = "metadata";
 
@@ -10,7 +10,7 @@ export interface staticVideo {
   loop: boolean;
   audio: boolean;
   tips: tips | undefined;
-  fungibleTokenGate: fungibleTokenGate | undefined;
+  chainedEditions: chainedEditions | undefined;
 }
 
 const basestaticVideo: object = { loop: false, audio: false };
@@ -29,9 +29,9 @@ export const staticVideo = {
     if (message.tips !== undefined) {
       tips.encode(message.tips, writer.uint32(26).fork()).ldelim();
     }
-    if (message.fungibleTokenGate !== undefined) {
-      fungibleTokenGate
-        .encode(message.fungibleTokenGate, writer.uint32(34).fork())
+    if (message.chainedEditions !== undefined) {
+      chainedEditions
+        .encode(message.chainedEditions, writer.uint32(34).fork())
         .ldelim();
     }
     return writer;
@@ -54,7 +54,7 @@ export const staticVideo = {
           message.tips = tips.decode(reader, reader.uint32());
           break;
         case 4:
-          message.fungibleTokenGate = fungibleTokenGate.decode(
+          message.chainedEditions = chainedEditions.decode(
             reader,
             reader.uint32()
           );
@@ -85,14 +85,14 @@ export const staticVideo = {
       message.tips = undefined;
     }
     if (
-      object.fungibleTokenGate !== undefined &&
-      object.fungibleTokenGate !== null
+      object.chainedEditions !== undefined &&
+      object.chainedEditions !== null
     ) {
-      message.fungibleTokenGate = fungibleTokenGate.fromJSON(
-        object.fungibleTokenGate
+      message.chainedEditions = chainedEditions.fromJSON(
+        object.chainedEditions
       );
     } else {
-      message.fungibleTokenGate = undefined;
+      message.chainedEditions = undefined;
     }
     return message;
   },
@@ -103,9 +103,9 @@ export const staticVideo = {
     message.audio !== undefined && (obj.audio = message.audio);
     message.tips !== undefined &&
       (obj.tips = message.tips ? tips.toJSON(message.tips) : undefined);
-    message.fungibleTokenGate !== undefined &&
-      (obj.fungibleTokenGate = message.fungibleTokenGate
-        ? fungibleTokenGate.toJSON(message.fungibleTokenGate)
+    message.chainedEditions !== undefined &&
+      (obj.chainedEditions = message.chainedEditions
+        ? chainedEditions.toJSON(message.chainedEditions)
         : undefined);
     return obj;
   },
@@ -128,14 +128,14 @@ export const staticVideo = {
       message.tips = undefined;
     }
     if (
-      object.fungibleTokenGate !== undefined &&
-      object.fungibleTokenGate !== null
+      object.chainedEditions !== undefined &&
+      object.chainedEditions !== null
     ) {
-      message.fungibleTokenGate = fungibleTokenGate.fromPartial(
-        object.fungibleTokenGate
+      message.chainedEditions = chainedEditions.fromPartial(
+        object.chainedEditions
       );
     } else {
-      message.fungibleTokenGate = undefined;
+      message.chainedEditions = undefined;
     }
     return message;
   },
