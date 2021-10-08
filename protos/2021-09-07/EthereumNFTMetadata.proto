@@ -1,9 +1,0 @@
-syntax = "proto3";
-package metadata;
-option go_package = "/;metadata";
-
-message EthereumNFTMetadata {
-    string image = 1;
-    string name = 2;
-    string description = 3;
-}
