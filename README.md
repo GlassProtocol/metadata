@@ -15,5 +15,34 @@
 `Content-Type` : `application/json`
 
 
-`Original-Tx` : `<ARWEAVE_ID>`
+`Protocol-Name` : `GLASS`
+
+
+`Identity` : `<ADDRESS>` or `<DID>`
+
+
+`Identity-Provider` : `SOLANA` or `ETHEREUM` or `DID:AR`
+
+
+`Video-Type` : `LIVE` or `STATIC`
+
+
+`Version` : `<CAL_VER>`
+
+
+`Environment` : `TESTING` or `PRODUCTION`
+
+
+`Content-Digest` :  `<HASH_OF_METADATA>` sha-256 base64URL
+
+
+`Original-Content-Digest` : `<HASH_OF_FIRST_METADATA>` sha-256 base64URL
+
+
+`Glass-Identity` : `<GLASS_DID>`
+
+`Glass-Identity-Provider` : `SOLANA` or `ETHEREUM` or `DID:AR`
+
+`Glass-Signatures` : `[<ADDRESS=SIGNATURE>]` (eth://, sol://, did:ar://)
+
 
