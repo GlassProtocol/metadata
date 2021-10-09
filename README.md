@@ -18,19 +18,16 @@
 `Protocol-Name` : `GLASS`
 
 
+`Metadata-Type` : `VIDEO`
+
+
+`Metadata-Version` : `<CAL_VER>`
+
+
 `Identity` : `<ADDRESS>` or `<DID>`
 
 
 `Identity-Provider` : `SOLANA` or `ETHEREUM` or `DID:AR`
-
-
-`Video-Type` : `LIVE` or `STATIC`
-
-
-`Version` : `<CAL_VER>`
-
-
-`Environment` : `TESTING` or `PRODUCTION`
 
 
 `Content-Digest` :  `<HASH_OF_METADATA>` sha-256 base64URL
@@ -39,10 +36,72 @@
 `Original-Content-Digest` : `<HASH_OF_FIRST_METADATA>` sha-256 base64URL
 
 
-`Glass-Identity` : `<GLASS_DID>`
+`Method` : `CREATE` or `UPDATE` or `DELETE`
 
-`Glass-Identity-Provider` : `SOLANA` or `ETHEREUM` or `DID:AR`
-
-`Glass-Signatures` : `[<ADDRESS=SIGNATURE>]` (eth://, sol://, did:ar://)
+`Context` : `GOOGLE UUID` (used to link all related data)
 
 
+optional
+
+`Video-Type` : `LIVESTREAM` or `STATIC_VIDEO`
+
+
+
+```
+
+		// required for loading data correctly
+		{
+			Name:  "Content-Type",
+			Value: "application/json",
+		},
+
+		// what protocol
+		{
+			Name:  "Protocol-Name",
+			Value: "GLASS",
+		},
+
+		// what type of metadata
+
+		{
+			Name:  "Metadata-Type",
+			Value: "VIDEO",
+		},
+
+		// what metadata version is being used
+
+		{
+			Name:  "Metadata-Version",
+			Value: "2021-10-08",
+		},
+
+		// who is posting this
+
+		{
+			Name:  "Identity",
+			Value: "did:ar://",
+		},
+
+		// what is providing the identity (sol, eth, did:ar)
+
+		{
+			Name:  "Identity-Provider",
+			Value: "DID:AR",
+		},
+
+		{
+			Name:  "Content-Digest",
+			Value: "HASH",
+		},
+
+		{
+			Name:  "Original-Content-Digest",
+			Value: "HASH",
+		},
+
+		{
+			Name:  "Method",
+			Value: "CREATE", // or UPDATE or DELETE
+		},
+
+```
