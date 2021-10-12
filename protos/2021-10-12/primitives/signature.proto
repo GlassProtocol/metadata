@@ -5,7 +5,7 @@ option go_package = "/;metadata";
 import "primitives/address.proto";
 
 message signature {
-    address signing_address = 1; // crypto address used to attest to a given address
+    address financial_public_key = 1; // crypto address used to attest to a given address
     int64 ed25519_expiration_time = 2; // unix time
     string ed25519_public_key = 3; // the temporary signing key
     string ed25519_attestation = 4; // signature of ed25519_public_key + ed25519_expiration_time

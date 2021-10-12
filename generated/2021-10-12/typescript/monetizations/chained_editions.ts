@@ -1,29 +1,34 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { network, networkFromJSON, networkToJSON } from "../primitives/network";
 import { address } from "../primitives/address";
 
 export const protobufPackage = "metadata";
 
 export interface chainedEditions {
-  editionContract: address | undefined;
+  network: network;
+  contractAddress: address | undefined;
   mintkeyContracts: address[];
 }
 
-const basechainedEditions: object = {};
+const basechainedEditions: object = { network: 0 };
 
 export const chainedEditions = {
   encode(
     message: chainedEditions,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.editionContract !== undefined) {
+    if (message.network !== 0) {
+      writer.uint32(8).int32(message.network);
+    }
+    if (message.contractAddress !== undefined) {
       address
-        .encode(message.editionContract, writer.uint32(10).fork())
+        .encode(message.contractAddress, writer.uint32(18).fork())
         .ldelim();
     }
     for (const v of message.mintkeyContracts) {
-      address.encode(v!, writer.uint32(18).fork()).ldelim();
+      address.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -37,9 +42,12 @@ export const chainedEditions = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.editionContract = address.decode(reader, reader.uint32());
+          message.network = reader.int32() as any;
           break;
         case 2:
+          message.contractAddress = address.decode(reader, reader.uint32());
+          break;
+        case 3:
           message.mintkeyContracts.push(
             address.decode(reader, reader.uint32())
           );
@@ -55,13 +63,18 @@ export const chainedEditions = {
   fromJSON(object: any): chainedEditions {
     const message = { ...basechainedEditions } as chainedEditions;
     message.mintkeyContracts = [];
-    if (
-      object.editionContract !== undefined &&
-      object.editionContract !== null
-    ) {
-      message.editionContract = address.fromJSON(object.editionContract);
+    if (object.network !== undefined && object.network !== null) {
+      message.network = networkFromJSON(object.network);
     } else {
-      message.editionContract = undefined;
+      message.network = 0;
+    }
+    if (
+      object.contractAddress !== undefined &&
+      object.contractAddress !== null
+    ) {
+      message.contractAddress = address.fromJSON(object.contractAddress);
+    } else {
+      message.contractAddress = undefined;
     }
     if (
       object.mintkeyContracts !== undefined &&
@@ -76,9 +89,11 @@ export const chainedEditions = {
 
   toJSON(message: chainedEditions): unknown {
     const obj: any = {};
-    message.editionContract !== undefined &&
-      (obj.editionContract = message.editionContract
-        ? address.toJSON(message.editionContract)
+    message.network !== undefined &&
+      (obj.network = networkToJSON(message.network));
+    message.contractAddress !== undefined &&
+      (obj.contractAddress = message.contractAddress
+        ? address.toJSON(message.contractAddress)
         : undefined);
     if (message.mintkeyContracts) {
       obj.mintkeyContracts = message.mintkeyContracts.map((e) =>
@@ -93,13 +108,18 @@ export const chainedEditions = {
   fromPartial(object: DeepPartial<chainedEditions>): chainedEditions {
     const message = { ...basechainedEditions } as chainedEditions;
     message.mintkeyContracts = [];
-    if (
-      object.editionContract !== undefined &&
-      object.editionContract !== null
-    ) {
-      message.editionContract = address.fromPartial(object.editionContract);
+    if (object.network !== undefined && object.network !== null) {
+      message.network = object.network;
     } else {
-      message.editionContract = undefined;
+      message.network = 0;
+    }
+    if (
+      object.contractAddress !== undefined &&
+      object.contractAddress !== null
+    ) {
+      message.contractAddress = address.fromPartial(object.contractAddress);
+    } else {
+      message.contractAddress = undefined;
     }
     if (
       object.mintkeyContracts !== undefined &&

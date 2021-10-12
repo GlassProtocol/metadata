@@ -72,7 +72,7 @@ func (x *Address) GetProtocol() Protocol {
 	if x != nil {
 		return x.Protocol
 	}
-	return Protocol_UNDEFINED
+	return Protocol_PROTOCOL_UNDEFINED
 }
 
 var File_primitives_address_proto protoreflect.FileDescriptor

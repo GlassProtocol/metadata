@@ -3,8 +3,11 @@ package metadata;
 option go_package = "/;metadata";
 
 import "primitives/address.proto";
+import "primitives/network.proto";
+
 
 message chained_editions {
-    address edition_contract = 1;
-    repeated address mintkey_contracts = 2;
+    network network = 1;
+    address contract_address = 2;
+    repeated address mintkey_contracts = 3;
 }

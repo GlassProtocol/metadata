@@ -1,20 +1,25 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { network, networkFromJSON, networkToJSON } from "../primitives/network";
 import { address } from "../primitives/address";
 
 export const protobufPackage = "metadata";
 
 export interface tips {
+  network: network;
   address: address | undefined;
 }
 
-const basetips: object = {};
+const basetips: object = { network: 0 };
 
 export const tips = {
   encode(message: tips, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.network !== 0) {
+      writer.uint32(8).int32(message.network);
+    }
     if (message.address !== undefined) {
-      address.encode(message.address, writer.uint32(10).fork()).ldelim();
+      address.encode(message.address, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -27,6 +32,9 @@ export const tips = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          message.network = reader.int32() as any;
+          break;
+        case 2:
           message.address = address.decode(reader, reader.uint32());
           break;
         default:
@@ -39,6 +47,11 @@ export const tips = {
 
   fromJSON(object: any): tips {
     const message = { ...basetips } as tips;
+    if (object.network !== undefined && object.network !== null) {
+      message.network = networkFromJSON(object.network);
+    } else {
+      message.network = 0;
+    }
     if (object.address !== undefined && object.address !== null) {
       message.address = address.fromJSON(object.address);
     } else {
@@ -49,6 +62,8 @@ export const tips = {
 
   toJSON(message: tips): unknown {
     const obj: any = {};
+    message.network !== undefined &&
+      (obj.network = networkToJSON(message.network));
     message.address !== undefined &&
       (obj.address = message.address
         ? address.toJSON(message.address)
@@ -58,6 +73,11 @@ export const tips = {
 
   fromPartial(object: DeepPartial<tips>): tips {
     const message = { ...basetips } as tips;
+    if (object.network !== undefined && object.network !== null) {
+      message.network = object.network;
+    } else {
+      message.network = 0;
+    }
     if (object.address !== undefined && object.address !== null) {
       message.address = address.fromPartial(object.address);
     } else {

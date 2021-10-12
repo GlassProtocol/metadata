@@ -3,7 +3,10 @@ package metadata;
 option go_package = "/;metadata";
 
 import "primitives/address.proto";
+import "primitives/network.proto";
+
 
 message tips {
-    address address = 1;
+    network network = 1;
+    address address = 2;
 }

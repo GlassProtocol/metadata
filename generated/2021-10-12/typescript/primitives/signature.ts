@@ -7,7 +7,7 @@ export const protobufPackage = "metadata";
 
 export interface signature {
   /** crypto address used to attest to a given address */
-  signingAddress: address | undefined;
+  financialPublicKey: address | undefined;
   /** unix time */
   ed25519ExpirationTime: number;
   /** the temporary signing key */
@@ -30,8 +30,10 @@ export const signature = {
     message: signature,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.signingAddress !== undefined) {
-      address.encode(message.signingAddress, writer.uint32(10).fork()).ldelim();
+    if (message.financialPublicKey !== undefined) {
+      address
+        .encode(message.financialPublicKey, writer.uint32(10).fork())
+        .ldelim();
     }
     if (message.ed25519ExpirationTime !== 0) {
       writer.uint32(16).int64(message.ed25519ExpirationTime);
@@ -56,7 +58,7 @@ export const signature = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.signingAddress = address.decode(reader, reader.uint32());
+          message.financialPublicKey = address.decode(reader, reader.uint32());
           break;
         case 2:
           message.ed25519ExpirationTime = longToNumber(reader.int64() as Long);
@@ -80,10 +82,13 @@ export const signature = {
 
   fromJSON(object: any): signature {
     const message = { ...basesignature } as signature;
-    if (object.signingAddress !== undefined && object.signingAddress !== null) {
-      message.signingAddress = address.fromJSON(object.signingAddress);
+    if (
+      object.financialPublicKey !== undefined &&
+      object.financialPublicKey !== null
+    ) {
+      message.financialPublicKey = address.fromJSON(object.financialPublicKey);
     } else {
-      message.signingAddress = undefined;
+      message.financialPublicKey = undefined;
     }
     if (
       object.ed25519ExpirationTime !== undefined &&
@@ -122,9 +127,9 @@ export const signature = {
 
   toJSON(message: signature): unknown {
     const obj: any = {};
-    message.signingAddress !== undefined &&
-      (obj.signingAddress = message.signingAddress
-        ? address.toJSON(message.signingAddress)
+    message.financialPublicKey !== undefined &&
+      (obj.financialPublicKey = message.financialPublicKey
+        ? address.toJSON(message.financialPublicKey)
         : undefined);
     message.ed25519ExpirationTime !== undefined &&
       (obj.ed25519ExpirationTime = message.ed25519ExpirationTime);
@@ -139,10 +144,15 @@ export const signature = {
 
   fromPartial(object: DeepPartial<signature>): signature {
     const message = { ...basesignature } as signature;
-    if (object.signingAddress !== undefined && object.signingAddress !== null) {
-      message.signingAddress = address.fromPartial(object.signingAddress);
+    if (
+      object.financialPublicKey !== undefined &&
+      object.financialPublicKey !== null
+    ) {
+      message.financialPublicKey = address.fromPartial(
+        object.financialPublicKey
+      );
     } else {
-      message.signingAddress = undefined;
+      message.financialPublicKey = undefined;
     }
     if (
       object.ed25519ExpirationTime !== undefined &&

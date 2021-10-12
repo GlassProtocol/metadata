@@ -4,8 +4,8 @@ option go_package = "/;metadata";
 
 
 enum protocol {
-    UNDEFINED = 0;
-    ETH_MAINNET = 1;
-    ETH_RINKEBY = 2;
-    SOLANA_MAINNET = 3;
+    PROTOCOL_UNDEFINED = 0;
+    ETHEREUM = 1;
+    SOLANA = 2;
+    BITCOIN = 3;
 }

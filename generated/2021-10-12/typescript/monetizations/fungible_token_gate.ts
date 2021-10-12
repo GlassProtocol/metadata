@@ -1,27 +1,32 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { network, networkFromJSON, networkToJSON } from "../primitives/network";
 import { address } from "../primitives/address";
 
 export const protobufPackage = "metadata";
 
 export interface fungibleTokenGate {
+  network: network;
   address: address | undefined;
   requiredBalance: string;
 }
 
-const basefungibleTokenGate: object = { requiredBalance: "" };
+const basefungibleTokenGate: object = { network: 0, requiredBalance: "" };
 
 export const fungibleTokenGate = {
   encode(
     message: fungibleTokenGate,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
+    if (message.network !== 0) {
+      writer.uint32(8).int32(message.network);
+    }
     if (message.address !== undefined) {
-      address.encode(message.address, writer.uint32(10).fork()).ldelim();
+      address.encode(message.address, writer.uint32(18).fork()).ldelim();
     }
     if (message.requiredBalance !== "") {
-      writer.uint32(18).string(message.requiredBalance);
+      writer.uint32(26).string(message.requiredBalance);
     }
     return writer;
   },
@@ -34,9 +39,12 @@ export const fungibleTokenGate = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.address = address.decode(reader, reader.uint32());
+          message.network = reader.int32() as any;
           break;
         case 2:
+          message.address = address.decode(reader, reader.uint32());
+          break;
+        case 3:
           message.requiredBalance = reader.string();
           break;
         default:
@@ -49,6 +57,11 @@ export const fungibleTokenGate = {
 
   fromJSON(object: any): fungibleTokenGate {
     const message = { ...basefungibleTokenGate } as fungibleTokenGate;
+    if (object.network !== undefined && object.network !== null) {
+      message.network = networkFromJSON(object.network);
+    } else {
+      message.network = 0;
+    }
     if (object.address !== undefined && object.address !== null) {
       message.address = address.fromJSON(object.address);
     } else {
@@ -67,6 +80,8 @@ export const fungibleTokenGate = {
 
   toJSON(message: fungibleTokenGate): unknown {
     const obj: any = {};
+    message.network !== undefined &&
+      (obj.network = networkToJSON(message.network));
     message.address !== undefined &&
       (obj.address = message.address
         ? address.toJSON(message.address)
@@ -78,6 +93,11 @@ export const fungibleTokenGate = {
 
   fromPartial(object: DeepPartial<fungibleTokenGate>): fungibleTokenGate {
     const message = { ...basefungibleTokenGate } as fungibleTokenGate;
+    if (object.network !== undefined && object.network !== null) {
+      message.network = object.network;
+    } else {
+      message.network = 0;
+    }
     if (object.address !== undefined && object.address !== null) {
       message.address = address.fromPartial(object.address);
     } else {

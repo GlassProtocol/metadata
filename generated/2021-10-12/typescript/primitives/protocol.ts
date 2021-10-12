@@ -5,27 +5,27 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "metadata";
 
 export enum protocol {
-  UNDEFINED = 0,
-  ETH_MAINNET = 1,
-  ETH_RINKEBY = 2,
-  SOLANA_MAINNET = 3,
+  PROTOCOL_UNDEFINED = 0,
+  ETHEREUM = 1,
+  SOLANA = 2,
+  BITCOIN = 3,
   UNRECOGNIZED = -1,
 }
 
 export function protocolFromJSON(object: any): protocol {
   switch (object) {
     case 0:
-    case "UNDEFINED":
-      return protocol.UNDEFINED;
+    case "PROTOCOL_UNDEFINED":
+      return protocol.PROTOCOL_UNDEFINED;
     case 1:
-    case "ETH_MAINNET":
-      return protocol.ETH_MAINNET;
+    case "ETHEREUM":
+      return protocol.ETHEREUM;
     case 2:
-    case "ETH_RINKEBY":
-      return protocol.ETH_RINKEBY;
+    case "SOLANA":
+      return protocol.SOLANA;
     case 3:
-    case "SOLANA_MAINNET":
-      return protocol.SOLANA_MAINNET;
+    case "BITCOIN":
+      return protocol.BITCOIN;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -35,14 +35,14 @@ export function protocolFromJSON(object: any): protocol {
 
 export function protocolToJSON(object: protocol): string {
   switch (object) {
-    case protocol.UNDEFINED:
-      return "UNDEFINED";
-    case protocol.ETH_MAINNET:
-      return "ETH_MAINNET";
-    case protocol.ETH_RINKEBY:
-      return "ETH_RINKEBY";
-    case protocol.SOLANA_MAINNET:
-      return "SOLANA_MAINNET";
+    case protocol.PROTOCOL_UNDEFINED:
+      return "PROTOCOL_UNDEFINED";
+    case protocol.ETHEREUM:
+      return "ETHEREUM";
+    case protocol.SOLANA:
+      return "SOLANA";
+    case protocol.BITCOIN:
+      return "BITCOIN";
     default:
       return "UNKNOWN";
   }
