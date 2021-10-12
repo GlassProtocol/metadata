@@ -6,8 +6,8 @@ import "primitives/address.proto";
 
 message signature {
     address signing_address = 1; // crypto address used to attest to a given address
-    int64 curve25519_expiration_time = 2; // unix time
-    string curve25519_public_key = 3; // the temporary signing key
-    string curve25519_attestation = 4; // signature of curve25519_expiration_time + curve25519_expiration_time
-    string metadata_signature = 5; // signed by the curve25519 tmp key
+    int64 ed25519_expiration_time = 2; // unix time
+    string ed25519_public_key = 3; // the temporary signing key
+    string ed25519_attestation = 4; // signature of ed25519_public_key + ed25519_expiration_time
+    string metadata_signature = 5; // signed by the ed25519 tmp key
 }

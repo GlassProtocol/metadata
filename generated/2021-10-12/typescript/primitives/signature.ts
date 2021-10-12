@@ -9,19 +9,19 @@ export interface signature {
   /** crypto address used to attest to a given address */
   signingAddress: address | undefined;
   /** unix time */
-  curve25519ExpirationTime: number;
+  ed25519ExpirationTime: number;
   /** the temporary signing key */
-  curve25519PublicKey: string;
-  /** signature of curve25519_expiration_time + curve25519_expiration_time */
-  curve25519Attestation: string;
-  /** signed by the curve25519 tmp key */
+  ed25519PublicKey: string;
+  /** signature of ed25519_public_key + ed25519_expiration_time */
+  ed25519Attestation: string;
+  /** signed by the ed25519 tmp key */
   metadataSignature: string;
 }
 
 const basesignature: object = {
-  curve25519ExpirationTime: 0,
-  curve25519PublicKey: "",
-  curve25519Attestation: "",
+  ed25519ExpirationTime: 0,
+  ed25519PublicKey: "",
+  ed25519Attestation: "",
   metadataSignature: "",
 };
 
@@ -33,14 +33,14 @@ export const signature = {
     if (message.signingAddress !== undefined) {
       address.encode(message.signingAddress, writer.uint32(10).fork()).ldelim();
     }
-    if (message.curve25519ExpirationTime !== 0) {
-      writer.uint32(16).int64(message.curve25519ExpirationTime);
+    if (message.ed25519ExpirationTime !== 0) {
+      writer.uint32(16).int64(message.ed25519ExpirationTime);
     }
-    if (message.curve25519PublicKey !== "") {
-      writer.uint32(26).string(message.curve25519PublicKey);
+    if (message.ed25519PublicKey !== "") {
+      writer.uint32(26).string(message.ed25519PublicKey);
     }
-    if (message.curve25519Attestation !== "") {
-      writer.uint32(34).string(message.curve25519Attestation);
+    if (message.ed25519Attestation !== "") {
+      writer.uint32(34).string(message.ed25519Attestation);
     }
     if (message.metadataSignature !== "") {
       writer.uint32(42).string(message.metadataSignature);
@@ -59,15 +59,13 @@ export const signature = {
           message.signingAddress = address.decode(reader, reader.uint32());
           break;
         case 2:
-          message.curve25519ExpirationTime = longToNumber(
-            reader.int64() as Long
-          );
+          message.ed25519ExpirationTime = longToNumber(reader.int64() as Long);
           break;
         case 3:
-          message.curve25519PublicKey = reader.string();
+          message.ed25519PublicKey = reader.string();
           break;
         case 4:
-          message.curve25519Attestation = reader.string();
+          message.ed25519Attestation = reader.string();
           break;
         case 5:
           message.metadataSignature = reader.string();
@@ -88,30 +86,28 @@ export const signature = {
       message.signingAddress = undefined;
     }
     if (
-      object.curve25519ExpirationTime !== undefined &&
-      object.curve25519ExpirationTime !== null
+      object.ed25519ExpirationTime !== undefined &&
+      object.ed25519ExpirationTime !== null
     ) {
-      message.curve25519ExpirationTime = Number(
-        object.curve25519ExpirationTime
-      );
+      message.ed25519ExpirationTime = Number(object.ed25519ExpirationTime);
     } else {
-      message.curve25519ExpirationTime = 0;
+      message.ed25519ExpirationTime = 0;
     }
     if (
-      object.curve25519PublicKey !== undefined &&
-      object.curve25519PublicKey !== null
+      object.ed25519PublicKey !== undefined &&
+      object.ed25519PublicKey !== null
     ) {
-      message.curve25519PublicKey = String(object.curve25519PublicKey);
+      message.ed25519PublicKey = String(object.ed25519PublicKey);
     } else {
-      message.curve25519PublicKey = "";
+      message.ed25519PublicKey = "";
     }
     if (
-      object.curve25519Attestation !== undefined &&
-      object.curve25519Attestation !== null
+      object.ed25519Attestation !== undefined &&
+      object.ed25519Attestation !== null
     ) {
-      message.curve25519Attestation = String(object.curve25519Attestation);
+      message.ed25519Attestation = String(object.ed25519Attestation);
     } else {
-      message.curve25519Attestation = "";
+      message.ed25519Attestation = "";
     }
     if (
       object.metadataSignature !== undefined &&
@@ -130,12 +126,12 @@ export const signature = {
       (obj.signingAddress = message.signingAddress
         ? address.toJSON(message.signingAddress)
         : undefined);
-    message.curve25519ExpirationTime !== undefined &&
-      (obj.curve25519ExpirationTime = message.curve25519ExpirationTime);
-    message.curve25519PublicKey !== undefined &&
-      (obj.curve25519PublicKey = message.curve25519PublicKey);
-    message.curve25519Attestation !== undefined &&
-      (obj.curve25519Attestation = message.curve25519Attestation);
+    message.ed25519ExpirationTime !== undefined &&
+      (obj.ed25519ExpirationTime = message.ed25519ExpirationTime);
+    message.ed25519PublicKey !== undefined &&
+      (obj.ed25519PublicKey = message.ed25519PublicKey);
+    message.ed25519Attestation !== undefined &&
+      (obj.ed25519Attestation = message.ed25519Attestation);
     message.metadataSignature !== undefined &&
       (obj.metadataSignature = message.metadataSignature);
     return obj;
@@ -149,28 +145,28 @@ export const signature = {
       message.signingAddress = undefined;
     }
     if (
-      object.curve25519ExpirationTime !== undefined &&
-      object.curve25519ExpirationTime !== null
+      object.ed25519ExpirationTime !== undefined &&
+      object.ed25519ExpirationTime !== null
     ) {
-      message.curve25519ExpirationTime = object.curve25519ExpirationTime;
+      message.ed25519ExpirationTime = object.ed25519ExpirationTime;
     } else {
-      message.curve25519ExpirationTime = 0;
+      message.ed25519ExpirationTime = 0;
     }
     if (
-      object.curve25519PublicKey !== undefined &&
-      object.curve25519PublicKey !== null
+      object.ed25519PublicKey !== undefined &&
+      object.ed25519PublicKey !== null
     ) {
-      message.curve25519PublicKey = object.curve25519PublicKey;
+      message.ed25519PublicKey = object.ed25519PublicKey;
     } else {
-      message.curve25519PublicKey = "";
+      message.ed25519PublicKey = "";
     }
     if (
-      object.curve25519Attestation !== undefined &&
-      object.curve25519Attestation !== null
+      object.ed25519Attestation !== undefined &&
+      object.ed25519Attestation !== null
     ) {
-      message.curve25519Attestation = object.curve25519Attestation;
+      message.ed25519Attestation = object.ed25519Attestation;
     } else {
-      message.curve25519Attestation = "";
+      message.ed25519Attestation = "";
     }
     if (
       object.metadataSignature !== undefined &&
