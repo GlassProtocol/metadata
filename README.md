@@ -20,15 +20,9 @@
 
 `Metadata-Type` : `VIDEO`
 
-
 `Metadata-Version` : `<CAL_VER>`
 
-
-`Identity` : `<ADDRESS>` or `<DID>`
-
-
-`Identity-Provider` : `SOLANA` or `ETHEREUM` or `DID:AR`
-
+`Identity` : `<DID>`
 
 `Content-Digest` :  `<HASH_OF_METADATA>` sha-256 base64URL
 

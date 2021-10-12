@@ -9,7 +9,7 @@ import "primitives/signature.proto";
 message metadata {
   string version = 1; // version number
   string did = 2;
-  repeated signature signatures = 3;
+  signature signature = 3;
   oneof data {
     video_metadata video = 4;
   }

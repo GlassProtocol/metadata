@@ -10,7 +10,7 @@ export interface metadata {
   /** version number */
   version: string;
   did: string;
-  signatures: signature[];
+  signature: signature | undefined;
   video: videoMetadata | undefined;
 }
 
@@ -27,8 +27,8 @@ export const metadata = {
     if (message.did !== "") {
       writer.uint32(18).string(message.did);
     }
-    for (const v of message.signatures) {
-      signature.encode(v!, writer.uint32(26).fork()).ldelim();
+    if (message.signature !== undefined) {
+      signature.encode(message.signature, writer.uint32(26).fork()).ldelim();
     }
     if (message.video !== undefined) {
       videoMetadata.encode(message.video, writer.uint32(34).fork()).ldelim();
@@ -40,7 +40,6 @@ export const metadata = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...basemetadata } as metadata;
-    message.signatures = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -51,7 +50,7 @@ export const metadata = {
           message.did = reader.string();
           break;
         case 3:
-          message.signatures.push(signature.decode(reader, reader.uint32()));
+          message.signature = signature.decode(reader, reader.uint32());
           break;
         case 4:
           message.video = videoMetadata.decode(reader, reader.uint32());
@@ -66,7 +65,6 @@ export const metadata = {
 
   fromJSON(object: any): metadata {
     const message = { ...basemetadata } as metadata;
-    message.signatures = [];
     if (object.version !== undefined && object.version !== null) {
       message.version = String(object.version);
     } else {
@@ -77,10 +75,10 @@ export const metadata = {
     } else {
       message.did = "";
     }
-    if (object.signatures !== undefined && object.signatures !== null) {
-      for (const e of object.signatures) {
-        message.signatures.push(signature.fromJSON(e));
-      }
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = signature.fromJSON(object.signature);
+    } else {
+      message.signature = undefined;
     }
     if (object.video !== undefined && object.video !== null) {
       message.video = videoMetadata.fromJSON(object.video);
@@ -94,13 +92,10 @@ export const metadata = {
     const obj: any = {};
     message.version !== undefined && (obj.version = message.version);
     message.did !== undefined && (obj.did = message.did);
-    if (message.signatures) {
-      obj.signatures = message.signatures.map((e) =>
-        e ? signature.toJSON(e) : undefined
-      );
-    } else {
-      obj.signatures = [];
-    }
+    message.signature !== undefined &&
+      (obj.signature = message.signature
+        ? signature.toJSON(message.signature)
+        : undefined);
     message.video !== undefined &&
       (obj.video = message.video
         ? videoMetadata.toJSON(message.video)
@@ -110,7 +105,6 @@ export const metadata = {
 
   fromPartial(object: DeepPartial<metadata>): metadata {
     const message = { ...basemetadata } as metadata;
-    message.signatures = [];
     if (object.version !== undefined && object.version !== null) {
       message.version = object.version;
     } else {
@@ -121,10 +115,10 @@ export const metadata = {
     } else {
       message.did = "";
     }
-    if (object.signatures !== undefined && object.signatures !== null) {
-      for (const e of object.signatures) {
-        message.signatures.push(signature.fromPartial(e));
-      }
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = signature.fromPartial(object.signature);
+    } else {
+      message.signature = undefined;
     }
     if (object.video !== undefined && object.video !== null) {
       message.video = videoMetadata.fromPartial(object.video);
