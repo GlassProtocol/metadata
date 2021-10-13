@@ -13,9 +13,20 @@ message signature {
 }
 
 message header {
-    string algorithm = 1; // ed25519
-    string encoding = 2; // base64URL
+    algorithm algorithm = 1; // ed25519
+    encoding encoding = 2; // base64URL
 }
+
+enum algorithm {
+    ALGORITHM_UNDEFINED = 0;
+    ED25519 = 1;
+}
+
+enum encoding {
+    ENCODING_UNDEFINED = 0;
+    BASE64_URL = 1;
+}
+
 
 message claims {
     string issuer = 1; // GLASS.XYZ
