@@ -20,6 +20,6 @@ message header {
 message claims {
     string issuer = 1; // GLASS.XYZ
     string temporary_key = 2; // the 
-    string expires_at = 3; // expires at
-    string issued_at = 4; // issued at
+    int64 expires_at = 3; // expires at
+    int64 issued_at = 4; // issued at
 }

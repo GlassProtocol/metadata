@@ -31,9 +31,9 @@ export interface claims {
   /** the */
   temporaryKey: string;
   /** expires at */
-  expiresAt: string;
+  expiresAt: number;
   /** issued at */
-  issuedAt: string;
+  issuedAt: number;
 }
 
 const basesignature: object = { attestation: "", metadataSignature: "" };
@@ -261,8 +261,8 @@ export const header = {
 const baseclaims: object = {
   issuer: "",
   temporaryKey: "",
-  expiresAt: "",
-  issuedAt: "",
+  expiresAt: 0,
+  issuedAt: 0,
 };
 
 export const claims = {
@@ -276,11 +276,11 @@ export const claims = {
     if (message.temporaryKey !== "") {
       writer.uint32(18).string(message.temporaryKey);
     }
-    if (message.expiresAt !== "") {
-      writer.uint32(26).string(message.expiresAt);
+    if (message.expiresAt !== 0) {
+      writer.uint32(24).int64(message.expiresAt);
     }
-    if (message.issuedAt !== "") {
-      writer.uint32(34).string(message.issuedAt);
+    if (message.issuedAt !== 0) {
+      writer.uint32(32).int64(message.issuedAt);
     }
     return writer;
   },
@@ -299,10 +299,10 @@ export const claims = {
           message.temporaryKey = reader.string();
           break;
         case 3:
-          message.expiresAt = reader.string();
+          message.expiresAt = longToNumber(reader.int64() as Long);
           break;
         case 4:
-          message.issuedAt = reader.string();
+          message.issuedAt = longToNumber(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -325,14 +325,14 @@ export const claims = {
       message.temporaryKey = "";
     }
     if (object.expiresAt !== undefined && object.expiresAt !== null) {
-      message.expiresAt = String(object.expiresAt);
+      message.expiresAt = Number(object.expiresAt);
     } else {
-      message.expiresAt = "";
+      message.expiresAt = 0;
     }
     if (object.issuedAt !== undefined && object.issuedAt !== null) {
-      message.issuedAt = String(object.issuedAt);
+      message.issuedAt = Number(object.issuedAt);
     } else {
-      message.issuedAt = "";
+      message.issuedAt = 0;
     }
     return message;
   },
@@ -362,16 +362,26 @@ export const claims = {
     if (object.expiresAt !== undefined && object.expiresAt !== null) {
       message.expiresAt = object.expiresAt;
     } else {
-      message.expiresAt = "";
+      message.expiresAt = 0;
     }
     if (object.issuedAt !== undefined && object.issuedAt !== null) {
       message.issuedAt = object.issuedAt;
     } else {
-      message.issuedAt = "";
+      message.issuedAt = 0;
     }
     return message;
   },
 };
+
+declare var self: any | undefined;
+declare var window: any | undefined;
+var globalThis: any = (() => {
+  if (typeof globalThis !== "undefined") return globalThis;
+  if (typeof self !== "undefined") return self;
+  if (typeof window !== "undefined") return window;
+  if (typeof global !== "undefined") return global;
+  throw "Unable to locate global object";
+})();
 
 type Builtin =
   | Date
@@ -390,6 +400,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
+}
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
