@@ -10,6 +10,11 @@ message metadata {
   string version = 1; // version number
   string did = 2;
   signature signature = 3;
+  data data = 4;
+}
+
+
+message data {
   oneof data {
     video_metadata video = 4;
   }

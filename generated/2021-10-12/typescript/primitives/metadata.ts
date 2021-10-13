@@ -11,6 +11,10 @@ export interface metadata {
   version: string;
   did: string;
   signature: signature | undefined;
+  data: data | undefined;
+}
+
+export interface data {
   video: videoMetadata | undefined;
 }
 
@@ -30,8 +34,8 @@ export const metadata = {
     if (message.signature !== undefined) {
       signature.encode(message.signature, writer.uint32(26).fork()).ldelim();
     }
-    if (message.video !== undefined) {
-      videoMetadata.encode(message.video, writer.uint32(34).fork()).ldelim();
+    if (message.data !== undefined) {
+      data.encode(message.data, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -53,7 +57,7 @@ export const metadata = {
           message.signature = signature.decode(reader, reader.uint32());
           break;
         case 4:
-          message.video = videoMetadata.decode(reader, reader.uint32());
+          message.data = data.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -80,10 +84,10 @@ export const metadata = {
     } else {
       message.signature = undefined;
     }
-    if (object.video !== undefined && object.video !== null) {
-      message.video = videoMetadata.fromJSON(object.video);
+    if (object.data !== undefined && object.data !== null) {
+      message.data = data.fromJSON(object.data);
     } else {
-      message.video = undefined;
+      message.data = undefined;
     }
     return message;
   },
@@ -96,10 +100,8 @@ export const metadata = {
       (obj.signature = message.signature
         ? signature.toJSON(message.signature)
         : undefined);
-    message.video !== undefined &&
-      (obj.video = message.video
-        ? videoMetadata.toJSON(message.video)
-        : undefined);
+    message.data !== undefined &&
+      (obj.data = message.data ? data.toJSON(message.data) : undefined);
     return obj;
   },
 
@@ -120,6 +122,64 @@ export const metadata = {
     } else {
       message.signature = undefined;
     }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = data.fromPartial(object.data);
+    } else {
+      message.data = undefined;
+    }
+    return message;
+  },
+};
+
+const basedata: object = {};
+
+export const data = {
+  encode(message: data, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.video !== undefined) {
+      videoMetadata.encode(message.video, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): data {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...basedata } as data;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 4:
+          message.video = videoMetadata.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): data {
+    const message = { ...basedata } as data;
+    if (object.video !== undefined && object.video !== null) {
+      message.video = videoMetadata.fromJSON(object.video);
+    } else {
+      message.video = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: data): unknown {
+    const obj: any = {};
+    message.video !== undefined &&
+      (obj.video = message.video
+        ? videoMetadata.toJSON(message.video)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<data>): data {
+    const message = { ...basedata } as data;
     if (object.video !== undefined && object.video !== null) {
       message.video = videoMetadata.fromPartial(object.video);
     } else {
