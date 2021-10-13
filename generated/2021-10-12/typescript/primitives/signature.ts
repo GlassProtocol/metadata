@@ -7,13 +7,13 @@ export const protobufPackage = "metadata";
 
 export interface signature {
   /** crypto address used to attest to a given address */
-  attestingAddress: address | undefined;
+  claimSigningAddress: address | undefined;
   /** this gets signed */
   claims: claims | undefined;
   /** type of algorithm used */
   header: header | undefined;
   /** signature of header by the attesting_public_key */
-  attestation: string;
+  claimsSignature: string;
   /** signed by the temporary key */
   metadataSignature: string;
 }
@@ -29,23 +29,23 @@ export interface claims {
   /** GLASS.XYZ */
   issuer: string;
   /** the */
-  temporaryKey: string;
+  metadataSigningKey: string;
   /** expires at */
   expiresAt: number;
   /** issued at */
   issuedAt: number;
 }
 
-const basesignature: object = { attestation: "", metadataSignature: "" };
+const basesignature: object = { claimsSignature: "", metadataSignature: "" };
 
 export const signature = {
   encode(
     message: signature,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.attestingAddress !== undefined) {
+    if (message.claimSigningAddress !== undefined) {
       address
-        .encode(message.attestingAddress, writer.uint32(10).fork())
+        .encode(message.claimSigningAddress, writer.uint32(10).fork())
         .ldelim();
     }
     if (message.claims !== undefined) {
@@ -54,8 +54,8 @@ export const signature = {
     if (message.header !== undefined) {
       header.encode(message.header, writer.uint32(26).fork()).ldelim();
     }
-    if (message.attestation !== "") {
-      writer.uint32(34).string(message.attestation);
+    if (message.claimsSignature !== "") {
+      writer.uint32(34).string(message.claimsSignature);
     }
     if (message.metadataSignature !== "") {
       writer.uint32(42).string(message.metadataSignature);
@@ -71,7 +71,7 @@ export const signature = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.attestingAddress = address.decode(reader, reader.uint32());
+          message.claimSigningAddress = address.decode(reader, reader.uint32());
           break;
         case 2:
           message.claims = claims.decode(reader, reader.uint32());
@@ -80,7 +80,7 @@ export const signature = {
           message.header = header.decode(reader, reader.uint32());
           break;
         case 4:
-          message.attestation = reader.string();
+          message.claimsSignature = reader.string();
           break;
         case 5:
           message.metadataSignature = reader.string();
@@ -96,12 +96,14 @@ export const signature = {
   fromJSON(object: any): signature {
     const message = { ...basesignature } as signature;
     if (
-      object.attestingAddress !== undefined &&
-      object.attestingAddress !== null
+      object.claimSigningAddress !== undefined &&
+      object.claimSigningAddress !== null
     ) {
-      message.attestingAddress = address.fromJSON(object.attestingAddress);
+      message.claimSigningAddress = address.fromJSON(
+        object.claimSigningAddress
+      );
     } else {
-      message.attestingAddress = undefined;
+      message.claimSigningAddress = undefined;
     }
     if (object.claims !== undefined && object.claims !== null) {
       message.claims = claims.fromJSON(object.claims);
@@ -113,10 +115,13 @@ export const signature = {
     } else {
       message.header = undefined;
     }
-    if (object.attestation !== undefined && object.attestation !== null) {
-      message.attestation = String(object.attestation);
+    if (
+      object.claimsSignature !== undefined &&
+      object.claimsSignature !== null
+    ) {
+      message.claimsSignature = String(object.claimsSignature);
     } else {
-      message.attestation = "";
+      message.claimsSignature = "";
     }
     if (
       object.metadataSignature !== undefined &&
@@ -131,16 +136,16 @@ export const signature = {
 
   toJSON(message: signature): unknown {
     const obj: any = {};
-    message.attestingAddress !== undefined &&
-      (obj.attestingAddress = message.attestingAddress
-        ? address.toJSON(message.attestingAddress)
+    message.claimSigningAddress !== undefined &&
+      (obj.claimSigningAddress = message.claimSigningAddress
+        ? address.toJSON(message.claimSigningAddress)
         : undefined);
     message.claims !== undefined &&
       (obj.claims = message.claims ? claims.toJSON(message.claims) : undefined);
     message.header !== undefined &&
       (obj.header = message.header ? header.toJSON(message.header) : undefined);
-    message.attestation !== undefined &&
-      (obj.attestation = message.attestation);
+    message.claimsSignature !== undefined &&
+      (obj.claimsSignature = message.claimsSignature);
     message.metadataSignature !== undefined &&
       (obj.metadataSignature = message.metadataSignature);
     return obj;
@@ -149,12 +154,14 @@ export const signature = {
   fromPartial(object: DeepPartial<signature>): signature {
     const message = { ...basesignature } as signature;
     if (
-      object.attestingAddress !== undefined &&
-      object.attestingAddress !== null
+      object.claimSigningAddress !== undefined &&
+      object.claimSigningAddress !== null
     ) {
-      message.attestingAddress = address.fromPartial(object.attestingAddress);
+      message.claimSigningAddress = address.fromPartial(
+        object.claimSigningAddress
+      );
     } else {
-      message.attestingAddress = undefined;
+      message.claimSigningAddress = undefined;
     }
     if (object.claims !== undefined && object.claims !== null) {
       message.claims = claims.fromPartial(object.claims);
@@ -166,10 +173,13 @@ export const signature = {
     } else {
       message.header = undefined;
     }
-    if (object.attestation !== undefined && object.attestation !== null) {
-      message.attestation = object.attestation;
+    if (
+      object.claimsSignature !== undefined &&
+      object.claimsSignature !== null
+    ) {
+      message.claimsSignature = object.claimsSignature;
     } else {
-      message.attestation = "";
+      message.claimsSignature = "";
     }
     if (
       object.metadataSignature !== undefined &&
@@ -260,7 +270,7 @@ export const header = {
 
 const baseclaims: object = {
   issuer: "",
-  temporaryKey: "",
+  metadataSigningKey: "",
   expiresAt: 0,
   issuedAt: 0,
 };
@@ -273,8 +283,8 @@ export const claims = {
     if (message.issuer !== "") {
       writer.uint32(10).string(message.issuer);
     }
-    if (message.temporaryKey !== "") {
-      writer.uint32(18).string(message.temporaryKey);
+    if (message.metadataSigningKey !== "") {
+      writer.uint32(18).string(message.metadataSigningKey);
     }
     if (message.expiresAt !== 0) {
       writer.uint32(24).int64(message.expiresAt);
@@ -296,7 +306,7 @@ export const claims = {
           message.issuer = reader.string();
           break;
         case 2:
-          message.temporaryKey = reader.string();
+          message.metadataSigningKey = reader.string();
           break;
         case 3:
           message.expiresAt = longToNumber(reader.int64() as Long);
@@ -319,10 +329,13 @@ export const claims = {
     } else {
       message.issuer = "";
     }
-    if (object.temporaryKey !== undefined && object.temporaryKey !== null) {
-      message.temporaryKey = String(object.temporaryKey);
+    if (
+      object.metadataSigningKey !== undefined &&
+      object.metadataSigningKey !== null
+    ) {
+      message.metadataSigningKey = String(object.metadataSigningKey);
     } else {
-      message.temporaryKey = "";
+      message.metadataSigningKey = "";
     }
     if (object.expiresAt !== undefined && object.expiresAt !== null) {
       message.expiresAt = Number(object.expiresAt);
@@ -340,8 +353,8 @@ export const claims = {
   toJSON(message: claims): unknown {
     const obj: any = {};
     message.issuer !== undefined && (obj.issuer = message.issuer);
-    message.temporaryKey !== undefined &&
-      (obj.temporaryKey = message.temporaryKey);
+    message.metadataSigningKey !== undefined &&
+      (obj.metadataSigningKey = message.metadataSigningKey);
     message.expiresAt !== undefined && (obj.expiresAt = message.expiresAt);
     message.issuedAt !== undefined && (obj.issuedAt = message.issuedAt);
     return obj;
@@ -354,10 +367,13 @@ export const claims = {
     } else {
       message.issuer = "";
     }
-    if (object.temporaryKey !== undefined && object.temporaryKey !== null) {
-      message.temporaryKey = object.temporaryKey;
+    if (
+      object.metadataSigningKey !== undefined &&
+      object.metadataSigningKey !== null
+    ) {
+      message.metadataSigningKey = object.metadataSigningKey;
     } else {
-      message.temporaryKey = "";
+      message.metadataSigningKey = "";
     }
     if (object.expiresAt !== undefined && object.expiresAt !== null) {
       message.expiresAt = object.expiresAt;

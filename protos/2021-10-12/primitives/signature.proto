@@ -5,10 +5,10 @@ option go_package = "/;metadata";
 import "primitives/address.proto";
 
 message signature {
-    address attesting_address = 1; // crypto address used to attest to a given address
+    address claims_signing_address = 1; // crypto address used to attest to a given address
     claims claims = 2; // this gets signed
     header header = 3; // type of algorithm used
-    string attestation = 4; // signature of header by the attesting_public_key
+    string claims_signature = 4; // signature of header by the attesting_public_key
     string metadata_signature = 5; // signed by the temporary key
 }
 
@@ -19,7 +19,7 @@ message header {
 
 message claims {
     string issuer = 1; // GLASS.XYZ
-    string temporary_key = 2; // the 
+    string metadata_signing_key = 2; // the 
     int64 expires_at = 3; // expires at
     int64 issued_at = 4; // issued at
 }
