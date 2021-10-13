@@ -32,7 +32,6 @@
 
 `Method` : `CREATE` or `UPDATE` or `DELETE`
 
-`Context` : `GOOGLE UUID` (used to link all related data)
 
 
 optional
