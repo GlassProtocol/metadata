@@ -5,9 +5,21 @@ option go_package = "/;metadata";
 import "primitives/address.proto";
 
 message signature {
-    address financial_public_key = 1; // crypto address used to attest to a given address
-    int64 ed25519_expiration_time = 2; // unix time
-    string ed25519_public_key = 3; // the temporary signing key
-    string ed25519_attestation = 4; // signature of ed25519_public_key + ed25519_expiration_time
-    string metadata_signature = 5; // signed by the ed25519 tmp key
+    address attesting_address = 1; // crypto address used to attest to a given address
+    claims claims = 2; // this gets signed
+    header header = 3; // type of algorithm used
+    string attestation = 4; // signature of header by the attesting_public_key
+    string metadata_signature = 5; // signed by the temporary key
+}
+
+message header {
+    string algorithm = 1; // ed25519
+    string encoding = 2; // base64URL
+}
+
+message claims {
+    string issuer = 1; // GLASS.XYZ
+    string temporary_key = 2; // the 
+    string expires_at = 3; // expires at
+    string issued_at = 4; // issued at
 }
