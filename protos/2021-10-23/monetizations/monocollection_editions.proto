@@ -1,0 +1,13 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "primitives/address.proto";
+import "primitives/network.proto";
+
+
+message monocollection_editions {
+    network network = 1;
+    address edition_contract_address = 2;
+    string edition_id = 3;
+}

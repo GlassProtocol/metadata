@@ -3,6 +3,8 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { tips } from "../monetizations/tips";
 import { chainedEditions } from "../monetizations/chained_editions";
+import { monocollectionEditions } from "../monetizations/monocollection_editions";
+import { erc721ReserveAuction } from "../monetizations/erc721_reserve_auction";
 
 export const protobufPackage = "metadata";
 
@@ -13,6 +15,8 @@ export interface staticVideo {
   width: number;
   tips: tips | undefined;
   chainedEditions: chainedEditions | undefined;
+  monocollectionEditions: monocollectionEditions | undefined;
+  erc721ReserveAuction: erc721ReserveAuction | undefined;
 }
 
 const basestaticVideo: object = {
@@ -47,6 +51,16 @@ export const staticVideo = {
         .encode(message.chainedEditions, writer.uint32(818).fork())
         .ldelim();
     }
+    if (message.monocollectionEditions !== undefined) {
+      monocollectionEditions
+        .encode(message.monocollectionEditions, writer.uint32(826).fork())
+        .ldelim();
+    }
+    if (message.erc721ReserveAuction !== undefined) {
+      erc721ReserveAuction
+        .encode(message.erc721ReserveAuction, writer.uint32(834).fork())
+        .ldelim();
+    }
     return writer;
   },
 
@@ -74,6 +88,18 @@ export const staticVideo = {
           break;
         case 102:
           message.chainedEditions = chainedEditions.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        case 103:
+          message.monocollectionEditions = monocollectionEditions.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        case 104:
+          message.erc721ReserveAuction = erc721ReserveAuction.decode(
             reader,
             reader.uint32()
           );
@@ -123,6 +149,26 @@ export const staticVideo = {
     } else {
       message.chainedEditions = undefined;
     }
+    if (
+      object.monocollectionEditions !== undefined &&
+      object.monocollectionEditions !== null
+    ) {
+      message.monocollectionEditions = monocollectionEditions.fromJSON(
+        object.monocollectionEditions
+      );
+    } else {
+      message.monocollectionEditions = undefined;
+    }
+    if (
+      object.erc721ReserveAuction !== undefined &&
+      object.erc721ReserveAuction !== null
+    ) {
+      message.erc721ReserveAuction = erc721ReserveAuction.fromJSON(
+        object.erc721ReserveAuction
+      );
+    } else {
+      message.erc721ReserveAuction = undefined;
+    }
     return message;
   },
 
@@ -137,6 +183,14 @@ export const staticVideo = {
     message.chainedEditions !== undefined &&
       (obj.chainedEditions = message.chainedEditions
         ? chainedEditions.toJSON(message.chainedEditions)
+        : undefined);
+    message.monocollectionEditions !== undefined &&
+      (obj.monocollectionEditions = message.monocollectionEditions
+        ? monocollectionEditions.toJSON(message.monocollectionEditions)
+        : undefined);
+    message.erc721ReserveAuction !== undefined &&
+      (obj.erc721ReserveAuction = message.erc721ReserveAuction
+        ? erc721ReserveAuction.toJSON(message.erc721ReserveAuction)
         : undefined);
     return obj;
   },
@@ -177,6 +231,26 @@ export const staticVideo = {
       );
     } else {
       message.chainedEditions = undefined;
+    }
+    if (
+      object.monocollectionEditions !== undefined &&
+      object.monocollectionEditions !== null
+    ) {
+      message.monocollectionEditions = monocollectionEditions.fromPartial(
+        object.monocollectionEditions
+      );
+    } else {
+      message.monocollectionEditions = undefined;
+    }
+    if (
+      object.erc721ReserveAuction !== undefined &&
+      object.erc721ReserveAuction !== null
+    ) {
+      message.erc721ReserveAuction = erc721ReserveAuction.fromPartial(
+        object.erc721ReserveAuction
+      );
+    } else {
+      message.erc721ReserveAuction = undefined;
     }
     return message;
   },
