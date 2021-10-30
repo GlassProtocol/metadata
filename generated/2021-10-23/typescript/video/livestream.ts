@@ -2,22 +2,22 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { tips } from "../monetizations/tips";
-import { fungibleTokenGate } from "../monetizations/fungible_token_gate";
+import { fungible_token_gate } from "../monetizations/fungible_token_gate";
 
 export const protobufPackage = "metadata";
 
 export interface livestream {
-  streamId: string;
-  sessionId: string;
-  scheduledTime: number;
+  stream_id: string;
+  session_id: string;
+  scheduled_time: number;
   tips: tips | undefined;
-  fungibleTokenGate: fungibleTokenGate | undefined;
+  fungible_token_gate: fungible_token_gate | undefined;
 }
 
 const baselivestream: object = {
-  streamId: "",
-  sessionId: "",
-  scheduledTime: 0,
+  stream_id: "",
+  session_id: "",
+  scheduled_time: 0,
 };
 
 export const livestream = {
@@ -25,21 +25,21 @@ export const livestream = {
     message: livestream,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.streamId !== "") {
-      writer.uint32(10).string(message.streamId);
+    if (message.stream_id !== "") {
+      writer.uint32(10).string(message.stream_id);
     }
-    if (message.sessionId !== "") {
-      writer.uint32(18).string(message.sessionId);
+    if (message.session_id !== "") {
+      writer.uint32(18).string(message.session_id);
     }
-    if (message.scheduledTime !== 0) {
-      writer.uint32(40).int64(message.scheduledTime);
+    if (message.scheduled_time !== 0) {
+      writer.uint32(40).int64(message.scheduled_time);
     }
     if (message.tips !== undefined) {
       tips.encode(message.tips, writer.uint32(810).fork()).ldelim();
     }
-    if (message.fungibleTokenGate !== undefined) {
-      fungibleTokenGate
-        .encode(message.fungibleTokenGate, writer.uint32(818).fork())
+    if (message.fungible_token_gate !== undefined) {
+      fungible_token_gate
+        .encode(message.fungible_token_gate, writer.uint32(818).fork())
         .ldelim();
     }
     return writer;
@@ -53,19 +53,19 @@ export const livestream = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.streamId = reader.string();
+          message.stream_id = reader.string();
           break;
         case 2:
-          message.sessionId = reader.string();
+          message.session_id = reader.string();
           break;
         case 5:
-          message.scheduledTime = longToNumber(reader.int64() as Long);
+          message.scheduled_time = longToNumber(reader.int64() as Long);
           break;
         case 101:
           message.tips = tips.decode(reader, reader.uint32());
           break;
         case 102:
-          message.fungibleTokenGate = fungibleTokenGate.decode(
+          message.fungible_token_gate = fungible_token_gate.decode(
             reader,
             reader.uint32()
           );
@@ -80,20 +80,20 @@ export const livestream = {
 
   fromJSON(object: any): livestream {
     const message = { ...baselivestream } as livestream;
-    if (object.streamId !== undefined && object.streamId !== null) {
-      message.streamId = String(object.streamId);
+    if (object.stream_id !== undefined && object.stream_id !== null) {
+      message.stream_id = String(object.stream_id);
     } else {
-      message.streamId = "";
+      message.stream_id = "";
     }
-    if (object.sessionId !== undefined && object.sessionId !== null) {
-      message.sessionId = String(object.sessionId);
+    if (object.session_id !== undefined && object.session_id !== null) {
+      message.session_id = String(object.session_id);
     } else {
-      message.sessionId = "";
+      message.session_id = "";
     }
-    if (object.scheduledTime !== undefined && object.scheduledTime !== null) {
-      message.scheduledTime = Number(object.scheduledTime);
+    if (object.scheduled_time !== undefined && object.scheduled_time !== null) {
+      message.scheduled_time = Number(object.scheduled_time);
     } else {
-      message.scheduledTime = 0;
+      message.scheduled_time = 0;
     }
     if (object.tips !== undefined && object.tips !== null) {
       message.tips = tips.fromJSON(object.tips);
@@ -101,49 +101,49 @@ export const livestream = {
       message.tips = undefined;
     }
     if (
-      object.fungibleTokenGate !== undefined &&
-      object.fungibleTokenGate !== null
+      object.fungible_token_gate !== undefined &&
+      object.fungible_token_gate !== null
     ) {
-      message.fungibleTokenGate = fungibleTokenGate.fromJSON(
-        object.fungibleTokenGate
+      message.fungible_token_gate = fungible_token_gate.fromJSON(
+        object.fungible_token_gate
       );
     } else {
-      message.fungibleTokenGate = undefined;
+      message.fungible_token_gate = undefined;
     }
     return message;
   },
 
   toJSON(message: livestream): unknown {
     const obj: any = {};
-    message.streamId !== undefined && (obj.streamId = message.streamId);
-    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
-    message.scheduledTime !== undefined &&
-      (obj.scheduledTime = message.scheduledTime);
+    message.stream_id !== undefined && (obj.stream_id = message.stream_id);
+    message.session_id !== undefined && (obj.session_id = message.session_id);
+    message.scheduled_time !== undefined &&
+      (obj.scheduled_time = message.scheduled_time);
     message.tips !== undefined &&
       (obj.tips = message.tips ? tips.toJSON(message.tips) : undefined);
-    message.fungibleTokenGate !== undefined &&
-      (obj.fungibleTokenGate = message.fungibleTokenGate
-        ? fungibleTokenGate.toJSON(message.fungibleTokenGate)
+    message.fungible_token_gate !== undefined &&
+      (obj.fungible_token_gate = message.fungible_token_gate
+        ? fungible_token_gate.toJSON(message.fungible_token_gate)
         : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<livestream>): livestream {
     const message = { ...baselivestream } as livestream;
-    if (object.streamId !== undefined && object.streamId !== null) {
-      message.streamId = object.streamId;
+    if (object.stream_id !== undefined && object.stream_id !== null) {
+      message.stream_id = object.stream_id;
     } else {
-      message.streamId = "";
+      message.stream_id = "";
     }
-    if (object.sessionId !== undefined && object.sessionId !== null) {
-      message.sessionId = object.sessionId;
+    if (object.session_id !== undefined && object.session_id !== null) {
+      message.session_id = object.session_id;
     } else {
-      message.sessionId = "";
+      message.session_id = "";
     }
-    if (object.scheduledTime !== undefined && object.scheduledTime !== null) {
-      message.scheduledTime = object.scheduledTime;
+    if (object.scheduled_time !== undefined && object.scheduled_time !== null) {
+      message.scheduled_time = object.scheduled_time;
     } else {
-      message.scheduledTime = 0;
+      message.scheduled_time = 0;
     }
     if (object.tips !== undefined && object.tips !== null) {
       message.tips = tips.fromPartial(object.tips);
@@ -151,14 +151,14 @@ export const livestream = {
       message.tips = undefined;
     }
     if (
-      object.fungibleTokenGate !== undefined &&
-      object.fungibleTokenGate !== null
+      object.fungible_token_gate !== undefined &&
+      object.fungible_token_gate !== null
     ) {
-      message.fungibleTokenGate = fungibleTokenGate.fromPartial(
-        object.fungibleTokenGate
+      message.fungible_token_gate = fungible_token_gate.fromPartial(
+        object.fungible_token_gate
       );
     } else {
-      message.fungibleTokenGate = undefined;
+      message.fungible_token_gate = undefined;
     }
     return message;
   },

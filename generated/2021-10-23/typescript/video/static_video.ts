@@ -2,33 +2,33 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { tips } from "../monetizations/tips";
-import { chainedEditions } from "../monetizations/chained_editions";
-import { monocollectionEditions } from "../monetizations/monocollection_editions";
-import { erc721ReserveAuction } from "../monetizations/erc721_reserve_auction";
+import { chained_editions } from "../monetizations/chained_editions";
+import { monocollection_editions } from "../monetizations/monocollection_editions";
+import { erc721_reserve_auction } from "../monetizations/erc721_reserve_auction";
 
 export const protobufPackage = "metadata";
 
-export interface staticVideo {
+export interface static_video {
   loop: boolean;
   audio: boolean;
   height: number;
   width: number;
   tips: tips | undefined;
-  chainedEditions: chainedEditions | undefined;
-  monocollectionEditions: monocollectionEditions | undefined;
-  erc721ReserveAuction: erc721ReserveAuction | undefined;
+  chained_editions: chained_editions | undefined;
+  monocollection_editions: monocollection_editions | undefined;
+  erc721_reserve_auction: erc721_reserve_auction | undefined;
 }
 
-const basestaticVideo: object = {
+const basestatic_video: object = {
   loop: false,
   audio: false,
   height: 0,
   width: 0,
 };
 
-export const staticVideo = {
+export const static_video = {
   encode(
-    message: staticVideo,
+    message: static_video,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.loop === true) {
@@ -46,28 +46,28 @@ export const staticVideo = {
     if (message.tips !== undefined) {
       tips.encode(message.tips, writer.uint32(810).fork()).ldelim();
     }
-    if (message.chainedEditions !== undefined) {
-      chainedEditions
-        .encode(message.chainedEditions, writer.uint32(818).fork())
+    if (message.chained_editions !== undefined) {
+      chained_editions
+        .encode(message.chained_editions, writer.uint32(818).fork())
         .ldelim();
     }
-    if (message.monocollectionEditions !== undefined) {
-      monocollectionEditions
-        .encode(message.monocollectionEditions, writer.uint32(826).fork())
+    if (message.monocollection_editions !== undefined) {
+      monocollection_editions
+        .encode(message.monocollection_editions, writer.uint32(826).fork())
         .ldelim();
     }
-    if (message.erc721ReserveAuction !== undefined) {
-      erc721ReserveAuction
-        .encode(message.erc721ReserveAuction, writer.uint32(834).fork())
+    if (message.erc721_reserve_auction !== undefined) {
+      erc721_reserve_auction
+        .encode(message.erc721_reserve_auction, writer.uint32(834).fork())
         .ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): staticVideo {
+  decode(input: _m0.Reader | Uint8Array, length?: number): static_video {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basestaticVideo } as staticVideo;
+    const message = { ...basestatic_video } as static_video;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -87,19 +87,19 @@ export const staticVideo = {
           message.tips = tips.decode(reader, reader.uint32());
           break;
         case 102:
-          message.chainedEditions = chainedEditions.decode(
+          message.chained_editions = chained_editions.decode(
             reader,
             reader.uint32()
           );
           break;
         case 103:
-          message.monocollectionEditions = monocollectionEditions.decode(
+          message.monocollection_editions = monocollection_editions.decode(
             reader,
             reader.uint32()
           );
           break;
         case 104:
-          message.erc721ReserveAuction = erc721ReserveAuction.decode(
+          message.erc721_reserve_auction = erc721_reserve_auction.decode(
             reader,
             reader.uint32()
           );
@@ -112,8 +112,8 @@ export const staticVideo = {
     return message;
   },
 
-  fromJSON(object: any): staticVideo {
-    const message = { ...basestaticVideo } as staticVideo;
+  fromJSON(object: any): static_video {
+    const message = { ...basestatic_video } as static_video;
     if (object.loop !== undefined && object.loop !== null) {
       message.loop = Boolean(object.loop);
     } else {
@@ -140,39 +140,39 @@ export const staticVideo = {
       message.tips = undefined;
     }
     if (
-      object.chainedEditions !== undefined &&
-      object.chainedEditions !== null
+      object.chained_editions !== undefined &&
+      object.chained_editions !== null
     ) {
-      message.chainedEditions = chainedEditions.fromJSON(
-        object.chainedEditions
+      message.chained_editions = chained_editions.fromJSON(
+        object.chained_editions
       );
     } else {
-      message.chainedEditions = undefined;
+      message.chained_editions = undefined;
     }
     if (
-      object.monocollectionEditions !== undefined &&
-      object.monocollectionEditions !== null
+      object.monocollection_editions !== undefined &&
+      object.monocollection_editions !== null
     ) {
-      message.monocollectionEditions = monocollectionEditions.fromJSON(
-        object.monocollectionEditions
+      message.monocollection_editions = monocollection_editions.fromJSON(
+        object.monocollection_editions
       );
     } else {
-      message.monocollectionEditions = undefined;
+      message.monocollection_editions = undefined;
     }
     if (
-      object.erc721ReserveAuction !== undefined &&
-      object.erc721ReserveAuction !== null
+      object.erc721_reserve_auction !== undefined &&
+      object.erc721_reserve_auction !== null
     ) {
-      message.erc721ReserveAuction = erc721ReserveAuction.fromJSON(
-        object.erc721ReserveAuction
+      message.erc721_reserve_auction = erc721_reserve_auction.fromJSON(
+        object.erc721_reserve_auction
       );
     } else {
-      message.erc721ReserveAuction = undefined;
+      message.erc721_reserve_auction = undefined;
     }
     return message;
   },
 
-  toJSON(message: staticVideo): unknown {
+  toJSON(message: static_video): unknown {
     const obj: any = {};
     message.loop !== undefined && (obj.loop = message.loop);
     message.audio !== undefined && (obj.audio = message.audio);
@@ -180,23 +180,23 @@ export const staticVideo = {
     message.width !== undefined && (obj.width = message.width);
     message.tips !== undefined &&
       (obj.tips = message.tips ? tips.toJSON(message.tips) : undefined);
-    message.chainedEditions !== undefined &&
-      (obj.chainedEditions = message.chainedEditions
-        ? chainedEditions.toJSON(message.chainedEditions)
+    message.chained_editions !== undefined &&
+      (obj.chained_editions = message.chained_editions
+        ? chained_editions.toJSON(message.chained_editions)
         : undefined);
-    message.monocollectionEditions !== undefined &&
-      (obj.monocollectionEditions = message.monocollectionEditions
-        ? monocollectionEditions.toJSON(message.monocollectionEditions)
+    message.monocollection_editions !== undefined &&
+      (obj.monocollection_editions = message.monocollection_editions
+        ? monocollection_editions.toJSON(message.monocollection_editions)
         : undefined);
-    message.erc721ReserveAuction !== undefined &&
-      (obj.erc721ReserveAuction = message.erc721ReserveAuction
-        ? erc721ReserveAuction.toJSON(message.erc721ReserveAuction)
+    message.erc721_reserve_auction !== undefined &&
+      (obj.erc721_reserve_auction = message.erc721_reserve_auction
+        ? erc721_reserve_auction.toJSON(message.erc721_reserve_auction)
         : undefined);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<staticVideo>): staticVideo {
-    const message = { ...basestaticVideo } as staticVideo;
+  fromPartial(object: DeepPartial<static_video>): static_video {
+    const message = { ...basestatic_video } as static_video;
     if (object.loop !== undefined && object.loop !== null) {
       message.loop = object.loop;
     } else {
@@ -223,34 +223,34 @@ export const staticVideo = {
       message.tips = undefined;
     }
     if (
-      object.chainedEditions !== undefined &&
-      object.chainedEditions !== null
+      object.chained_editions !== undefined &&
+      object.chained_editions !== null
     ) {
-      message.chainedEditions = chainedEditions.fromPartial(
-        object.chainedEditions
+      message.chained_editions = chained_editions.fromPartial(
+        object.chained_editions
       );
     } else {
-      message.chainedEditions = undefined;
+      message.chained_editions = undefined;
     }
     if (
-      object.monocollectionEditions !== undefined &&
-      object.monocollectionEditions !== null
+      object.monocollection_editions !== undefined &&
+      object.monocollection_editions !== null
     ) {
-      message.monocollectionEditions = monocollectionEditions.fromPartial(
-        object.monocollectionEditions
+      message.monocollection_editions = monocollection_editions.fromPartial(
+        object.monocollection_editions
       );
     } else {
-      message.monocollectionEditions = undefined;
+      message.monocollection_editions = undefined;
     }
     if (
-      object.erc721ReserveAuction !== undefined &&
-      object.erc721ReserveAuction !== null
+      object.erc721_reserve_auction !== undefined &&
+      object.erc721_reserve_auction !== null
     ) {
-      message.erc721ReserveAuction = erc721ReserveAuction.fromPartial(
-        object.erc721ReserveAuction
+      message.erc721_reserve_auction = erc721_reserve_auction.fromPartial(
+        object.erc721_reserve_auction
       );
     } else {
-      message.erc721ReserveAuction = undefined;
+      message.erc721_reserve_auction = undefined;
     }
     return message;
   },

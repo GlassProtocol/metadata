@@ -6,35 +6,35 @@ import { address } from "../primitives/address";
 
 export const protobufPackage = "metadata";
 
-export interface erc721ReserveAuction {
+export interface erc721_reserve_auction {
   network: network;
-  auctionContractAddress: address | undefined;
-  erc721ContractAddress: address | undefined;
-  erc721TokenId: string;
+  auction_contract_address: address | undefined;
+  erc721_contract_address: address | undefined;
+  erc721_token_id: string;
 }
 
-const baseerc721ReserveAuction: object = { network: 0, erc721TokenId: "" };
+const baseerc721_reserve_auction: object = { network: 0, erc721_token_id: "" };
 
-export const erc721ReserveAuction = {
+export const erc721_reserve_auction = {
   encode(
-    message: erc721ReserveAuction,
+    message: erc721_reserve_auction,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.network !== 0) {
       writer.uint32(8).int32(message.network);
     }
-    if (message.auctionContractAddress !== undefined) {
+    if (message.auction_contract_address !== undefined) {
       address
-        .encode(message.auctionContractAddress, writer.uint32(18).fork())
+        .encode(message.auction_contract_address, writer.uint32(18).fork())
         .ldelim();
     }
-    if (message.erc721ContractAddress !== undefined) {
+    if (message.erc721_contract_address !== undefined) {
       address
-        .encode(message.erc721ContractAddress, writer.uint32(26).fork())
+        .encode(message.erc721_contract_address, writer.uint32(26).fork())
         .ldelim();
     }
-    if (message.erc721TokenId !== "") {
-      writer.uint32(34).string(message.erc721TokenId);
+    if (message.erc721_token_id !== "") {
+      writer.uint32(34).string(message.erc721_token_id);
     }
     return writer;
   },
@@ -42,10 +42,10 @@ export const erc721ReserveAuction = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): erc721ReserveAuction {
+  ): erc721_reserve_auction {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseerc721ReserveAuction } as erc721ReserveAuction;
+    const message = { ...baseerc721_reserve_auction } as erc721_reserve_auction;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -53,19 +53,19 @@ export const erc721ReserveAuction = {
           message.network = reader.int32() as any;
           break;
         case 2:
-          message.auctionContractAddress = address.decode(
+          message.auction_contract_address = address.decode(
             reader,
             reader.uint32()
           );
           break;
         case 3:
-          message.erc721ContractAddress = address.decode(
+          message.erc721_contract_address = address.decode(
             reader,
             reader.uint32()
           );
           break;
         case 4:
-          message.erc721TokenId = reader.string();
+          message.erc721_token_id = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -75,89 +75,97 @@ export const erc721ReserveAuction = {
     return message;
   },
 
-  fromJSON(object: any): erc721ReserveAuction {
-    const message = { ...baseerc721ReserveAuction } as erc721ReserveAuction;
+  fromJSON(object: any): erc721_reserve_auction {
+    const message = { ...baseerc721_reserve_auction } as erc721_reserve_auction;
     if (object.network !== undefined && object.network !== null) {
       message.network = networkFromJSON(object.network);
     } else {
       message.network = 0;
     }
     if (
-      object.auctionContractAddress !== undefined &&
-      object.auctionContractAddress !== null
+      object.auction_contract_address !== undefined &&
+      object.auction_contract_address !== null
     ) {
-      message.auctionContractAddress = address.fromJSON(
-        object.auctionContractAddress
+      message.auction_contract_address = address.fromJSON(
+        object.auction_contract_address
       );
     } else {
-      message.auctionContractAddress = undefined;
+      message.auction_contract_address = undefined;
     }
     if (
-      object.erc721ContractAddress !== undefined &&
-      object.erc721ContractAddress !== null
+      object.erc721_contract_address !== undefined &&
+      object.erc721_contract_address !== null
     ) {
-      message.erc721ContractAddress = address.fromJSON(
-        object.erc721ContractAddress
+      message.erc721_contract_address = address.fromJSON(
+        object.erc721_contract_address
       );
     } else {
-      message.erc721ContractAddress = undefined;
+      message.erc721_contract_address = undefined;
     }
-    if (object.erc721TokenId !== undefined && object.erc721TokenId !== null) {
-      message.erc721TokenId = String(object.erc721TokenId);
+    if (
+      object.erc721_token_id !== undefined &&
+      object.erc721_token_id !== null
+    ) {
+      message.erc721_token_id = String(object.erc721_token_id);
     } else {
-      message.erc721TokenId = "";
+      message.erc721_token_id = "";
     }
     return message;
   },
 
-  toJSON(message: erc721ReserveAuction): unknown {
+  toJSON(message: erc721_reserve_auction): unknown {
     const obj: any = {};
     message.network !== undefined &&
       (obj.network = networkToJSON(message.network));
-    message.auctionContractAddress !== undefined &&
-      (obj.auctionContractAddress = message.auctionContractAddress
-        ? address.toJSON(message.auctionContractAddress)
+    message.auction_contract_address !== undefined &&
+      (obj.auction_contract_address = message.auction_contract_address
+        ? address.toJSON(message.auction_contract_address)
         : undefined);
-    message.erc721ContractAddress !== undefined &&
-      (obj.erc721ContractAddress = message.erc721ContractAddress
-        ? address.toJSON(message.erc721ContractAddress)
+    message.erc721_contract_address !== undefined &&
+      (obj.erc721_contract_address = message.erc721_contract_address
+        ? address.toJSON(message.erc721_contract_address)
         : undefined);
-    message.erc721TokenId !== undefined &&
-      (obj.erc721TokenId = message.erc721TokenId);
+    message.erc721_token_id !== undefined &&
+      (obj.erc721_token_id = message.erc721_token_id);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<erc721ReserveAuction>): erc721ReserveAuction {
-    const message = { ...baseerc721ReserveAuction } as erc721ReserveAuction;
+  fromPartial(
+    object: DeepPartial<erc721_reserve_auction>
+  ): erc721_reserve_auction {
+    const message = { ...baseerc721_reserve_auction } as erc721_reserve_auction;
     if (object.network !== undefined && object.network !== null) {
       message.network = object.network;
     } else {
       message.network = 0;
     }
     if (
-      object.auctionContractAddress !== undefined &&
-      object.auctionContractAddress !== null
+      object.auction_contract_address !== undefined &&
+      object.auction_contract_address !== null
     ) {
-      message.auctionContractAddress = address.fromPartial(
-        object.auctionContractAddress
+      message.auction_contract_address = address.fromPartial(
+        object.auction_contract_address
       );
     } else {
-      message.auctionContractAddress = undefined;
+      message.auction_contract_address = undefined;
     }
     if (
-      object.erc721ContractAddress !== undefined &&
-      object.erc721ContractAddress !== null
+      object.erc721_contract_address !== undefined &&
+      object.erc721_contract_address !== null
     ) {
-      message.erc721ContractAddress = address.fromPartial(
-        object.erc721ContractAddress
+      message.erc721_contract_address = address.fromPartial(
+        object.erc721_contract_address
       );
     } else {
-      message.erc721ContractAddress = undefined;
+      message.erc721_contract_address = undefined;
     }
-    if (object.erc721TokenId !== undefined && object.erc721TokenId !== null) {
-      message.erc721TokenId = object.erc721TokenId;
+    if (
+      object.erc721_token_id !== undefined &&
+      object.erc721_token_id !== null
+    ) {
+      message.erc721_token_id = object.erc721_token_id;
     } else {
-      message.erc721TokenId = "";
+      message.erc721_token_id = "";
     }
     return message;
   },

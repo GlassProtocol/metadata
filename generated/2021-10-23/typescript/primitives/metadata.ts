@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { signature } from "../primitives/signature";
-import { videoMetadata } from "../video/video_metadata";
+import { video_metadata } from "../video/video_metadata";
 
 export const protobufPackage = "metadata";
 
@@ -15,7 +15,7 @@ export interface metadata {
 }
 
 export interface data {
-  video: videoMetadata | undefined;
+  video: video_metadata | undefined;
 }
 
 const basemetadata: object = { version: "", did: "" };
@@ -136,7 +136,7 @@ const basedata: object = {};
 export const data = {
   encode(message: data, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.video !== undefined) {
-      videoMetadata.encode(message.video, writer.uint32(34).fork()).ldelim();
+      video_metadata.encode(message.video, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -149,7 +149,7 @@ export const data = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 4:
-          message.video = videoMetadata.decode(reader, reader.uint32());
+          message.video = video_metadata.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -162,7 +162,7 @@ export const data = {
   fromJSON(object: any): data {
     const message = { ...basedata } as data;
     if (object.video !== undefined && object.video !== null) {
-      message.video = videoMetadata.fromJSON(object.video);
+      message.video = video_metadata.fromJSON(object.video);
     } else {
       message.video = undefined;
     }
@@ -173,7 +173,7 @@ export const data = {
     const obj: any = {};
     message.video !== undefined &&
       (obj.video = message.video
-        ? videoMetadata.toJSON(message.video)
+        ? video_metadata.toJSON(message.video)
         : undefined);
     return obj;
   },
@@ -181,7 +181,7 @@ export const data = {
   fromPartial(object: DeepPartial<data>): data {
     const message = { ...basedata } as data;
     if (object.video !== undefined && object.video !== null) {
-      message.video = videoMetadata.fromPartial(object.video);
+      message.video = video_metadata.fromPartial(object.video);
     } else {
       message.video = undefined;
     }

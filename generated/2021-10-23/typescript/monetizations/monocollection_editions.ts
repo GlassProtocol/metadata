@@ -6,29 +6,29 @@ import { address } from "../primitives/address";
 
 export const protobufPackage = "metadata";
 
-export interface monocollectionEditions {
+export interface monocollection_editions {
   network: network;
-  editionContractAddress: address | undefined;
-  editionId: string;
+  edition_contract_address: address | undefined;
+  edition_id: string;
 }
 
-const basemonocollectionEditions: object = { network: 0, editionId: "" };
+const basemonocollection_editions: object = { network: 0, edition_id: "" };
 
-export const monocollectionEditions = {
+export const monocollection_editions = {
   encode(
-    message: monocollectionEditions,
+    message: monocollection_editions,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.network !== 0) {
       writer.uint32(8).int32(message.network);
     }
-    if (message.editionContractAddress !== undefined) {
+    if (message.edition_contract_address !== undefined) {
       address
-        .encode(message.editionContractAddress, writer.uint32(18).fork())
+        .encode(message.edition_contract_address, writer.uint32(18).fork())
         .ldelim();
     }
-    if (message.editionId !== "") {
-      writer.uint32(26).string(message.editionId);
+    if (message.edition_id !== "") {
+      writer.uint32(26).string(message.edition_id);
     }
     return writer;
   },
@@ -36,10 +36,12 @@ export const monocollectionEditions = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): monocollectionEditions {
+  ): monocollection_editions {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basemonocollectionEditions } as monocollectionEditions;
+    const message = {
+      ...basemonocollection_editions,
+    } as monocollection_editions;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -47,13 +49,13 @@ export const monocollectionEditions = {
           message.network = reader.int32() as any;
           break;
         case 2:
-          message.editionContractAddress = address.decode(
+          message.edition_contract_address = address.decode(
             reader,
             reader.uint32()
           );
           break;
         case 3:
-          message.editionId = reader.string();
+          message.edition_id = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -63,66 +65,70 @@ export const monocollectionEditions = {
     return message;
   },
 
-  fromJSON(object: any): monocollectionEditions {
-    const message = { ...basemonocollectionEditions } as monocollectionEditions;
+  fromJSON(object: any): monocollection_editions {
+    const message = {
+      ...basemonocollection_editions,
+    } as monocollection_editions;
     if (object.network !== undefined && object.network !== null) {
       message.network = networkFromJSON(object.network);
     } else {
       message.network = 0;
     }
     if (
-      object.editionContractAddress !== undefined &&
-      object.editionContractAddress !== null
+      object.edition_contract_address !== undefined &&
+      object.edition_contract_address !== null
     ) {
-      message.editionContractAddress = address.fromJSON(
-        object.editionContractAddress
+      message.edition_contract_address = address.fromJSON(
+        object.edition_contract_address
       );
     } else {
-      message.editionContractAddress = undefined;
+      message.edition_contract_address = undefined;
     }
-    if (object.editionId !== undefined && object.editionId !== null) {
-      message.editionId = String(object.editionId);
+    if (object.edition_id !== undefined && object.edition_id !== null) {
+      message.edition_id = String(object.edition_id);
     } else {
-      message.editionId = "";
+      message.edition_id = "";
     }
     return message;
   },
 
-  toJSON(message: monocollectionEditions): unknown {
+  toJSON(message: monocollection_editions): unknown {
     const obj: any = {};
     message.network !== undefined &&
       (obj.network = networkToJSON(message.network));
-    message.editionContractAddress !== undefined &&
-      (obj.editionContractAddress = message.editionContractAddress
-        ? address.toJSON(message.editionContractAddress)
+    message.edition_contract_address !== undefined &&
+      (obj.edition_contract_address = message.edition_contract_address
+        ? address.toJSON(message.edition_contract_address)
         : undefined);
-    message.editionId !== undefined && (obj.editionId = message.editionId);
+    message.edition_id !== undefined && (obj.edition_id = message.edition_id);
     return obj;
   },
 
   fromPartial(
-    object: DeepPartial<monocollectionEditions>
-  ): monocollectionEditions {
-    const message = { ...basemonocollectionEditions } as monocollectionEditions;
+    object: DeepPartial<monocollection_editions>
+  ): monocollection_editions {
+    const message = {
+      ...basemonocollection_editions,
+    } as monocollection_editions;
     if (object.network !== undefined && object.network !== null) {
       message.network = object.network;
     } else {
       message.network = 0;
     }
     if (
-      object.editionContractAddress !== undefined &&
-      object.editionContractAddress !== null
+      object.edition_contract_address !== undefined &&
+      object.edition_contract_address !== null
     ) {
-      message.editionContractAddress = address.fromPartial(
-        object.editionContractAddress
+      message.edition_contract_address = address.fromPartial(
+        object.edition_contract_address
       );
     } else {
-      message.editionContractAddress = undefined;
+      message.edition_contract_address = undefined;
     }
-    if (object.editionId !== undefined && object.editionId !== null) {
-      message.editionId = object.editionId;
+    if (object.edition_id !== undefined && object.edition_id !== null) {
+      message.edition_id = object.edition_id;
     } else {
-      message.editionId = "";
+      message.edition_id = "";
     }
     return message;
   },

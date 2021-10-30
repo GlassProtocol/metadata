@@ -6,18 +6,18 @@ export const protobufPackage = "metadata";
 
 export interface link {
   uri: string;
-  contentType: string;
+  content_type: string;
 }
 
-const baselink: object = { uri: "", contentType: "" };
+const baselink: object = { uri: "", content_type: "" };
 
 export const link = {
   encode(message: link, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.uri !== "") {
       writer.uint32(10).string(message.uri);
     }
-    if (message.contentType !== "") {
-      writer.uint32(18).string(message.contentType);
+    if (message.content_type !== "") {
+      writer.uint32(18).string(message.content_type);
     }
     return writer;
   },
@@ -33,7 +33,7 @@ export const link = {
           message.uri = reader.string();
           break;
         case 2:
-          message.contentType = reader.string();
+          message.content_type = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -50,10 +50,10 @@ export const link = {
     } else {
       message.uri = "";
     }
-    if (object.contentType !== undefined && object.contentType !== null) {
-      message.contentType = String(object.contentType);
+    if (object.content_type !== undefined && object.content_type !== null) {
+      message.content_type = String(object.content_type);
     } else {
-      message.contentType = "";
+      message.content_type = "";
     }
     return message;
   },
@@ -61,8 +61,8 @@ export const link = {
   toJSON(message: link): unknown {
     const obj: any = {};
     message.uri !== undefined && (obj.uri = message.uri);
-    message.contentType !== undefined &&
-      (obj.contentType = message.contentType);
+    message.content_type !== undefined &&
+      (obj.content_type = message.content_type);
     return obj;
   },
 
@@ -73,10 +73,10 @@ export const link = {
     } else {
       message.uri = "";
     }
-    if (object.contentType !== undefined && object.contentType !== null) {
-      message.contentType = object.contentType;
+    if (object.content_type !== undefined && object.content_type !== null) {
+      message.content_type = object.content_type;
     } else {
-      message.contentType = "";
+      message.content_type = "";
     }
     return message;
   },

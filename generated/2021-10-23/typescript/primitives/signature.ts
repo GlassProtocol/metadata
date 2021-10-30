@@ -71,15 +71,15 @@ export function encodingToJSON(object: encoding): string {
 
 export interface signature {
   /** crypto address used to attest to a given address */
-  claimsSigningAddress: address | undefined;
+  claims_signing_address: address | undefined;
   /** this gets signed */
   claims: claims | undefined;
   /** type of algorithm used */
   header: header | undefined;
   /** signature of header by the attesting_public_key */
-  claimsSignature: string;
+  claims_signature: string;
   /** signed by the temporary key */
-  metadataSignature: string;
+  metadata_signature: string;
 }
 
 export interface header {
@@ -93,23 +93,23 @@ export interface claims {
   /** GLASS.XYZ */
   issuer: string;
   /** the */
-  metadataSigningKey: string;
+  metadata_signing_key: string;
   /** expires at */
-  expiresAt: number;
+  expires_at: number;
   /** issued at */
-  issuedAt: number;
+  issued_at: number;
 }
 
-const basesignature: object = { claimsSignature: "", metadataSignature: "" };
+const basesignature: object = { claims_signature: "", metadata_signature: "" };
 
 export const signature = {
   encode(
     message: signature,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.claimsSigningAddress !== undefined) {
+    if (message.claims_signing_address !== undefined) {
       address
-        .encode(message.claimsSigningAddress, writer.uint32(10).fork())
+        .encode(message.claims_signing_address, writer.uint32(10).fork())
         .ldelim();
     }
     if (message.claims !== undefined) {
@@ -118,11 +118,11 @@ export const signature = {
     if (message.header !== undefined) {
       header.encode(message.header, writer.uint32(26).fork()).ldelim();
     }
-    if (message.claimsSignature !== "") {
-      writer.uint32(34).string(message.claimsSignature);
+    if (message.claims_signature !== "") {
+      writer.uint32(34).string(message.claims_signature);
     }
-    if (message.metadataSignature !== "") {
-      writer.uint32(42).string(message.metadataSignature);
+    if (message.metadata_signature !== "") {
+      writer.uint32(42).string(message.metadata_signature);
     }
     return writer;
   },
@@ -135,7 +135,7 @@ export const signature = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.claimsSigningAddress = address.decode(
+          message.claims_signing_address = address.decode(
             reader,
             reader.uint32()
           );
@@ -147,10 +147,10 @@ export const signature = {
           message.header = header.decode(reader, reader.uint32());
           break;
         case 4:
-          message.claimsSignature = reader.string();
+          message.claims_signature = reader.string();
           break;
         case 5:
-          message.metadataSignature = reader.string();
+          message.metadata_signature = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -163,14 +163,14 @@ export const signature = {
   fromJSON(object: any): signature {
     const message = { ...basesignature } as signature;
     if (
-      object.claimsSigningAddress !== undefined &&
-      object.claimsSigningAddress !== null
+      object.claims_signing_address !== undefined &&
+      object.claims_signing_address !== null
     ) {
-      message.claimsSigningAddress = address.fromJSON(
-        object.claimsSigningAddress
+      message.claims_signing_address = address.fromJSON(
+        object.claims_signing_address
       );
     } else {
-      message.claimsSigningAddress = undefined;
+      message.claims_signing_address = undefined;
     }
     if (object.claims !== undefined && object.claims !== null) {
       message.claims = claims.fromJSON(object.claims);
@@ -183,52 +183,52 @@ export const signature = {
       message.header = undefined;
     }
     if (
-      object.claimsSignature !== undefined &&
-      object.claimsSignature !== null
+      object.claims_signature !== undefined &&
+      object.claims_signature !== null
     ) {
-      message.claimsSignature = String(object.claimsSignature);
+      message.claims_signature = String(object.claims_signature);
     } else {
-      message.claimsSignature = "";
+      message.claims_signature = "";
     }
     if (
-      object.metadataSignature !== undefined &&
-      object.metadataSignature !== null
+      object.metadata_signature !== undefined &&
+      object.metadata_signature !== null
     ) {
-      message.metadataSignature = String(object.metadataSignature);
+      message.metadata_signature = String(object.metadata_signature);
     } else {
-      message.metadataSignature = "";
+      message.metadata_signature = "";
     }
     return message;
   },
 
   toJSON(message: signature): unknown {
     const obj: any = {};
-    message.claimsSigningAddress !== undefined &&
-      (obj.claimsSigningAddress = message.claimsSigningAddress
-        ? address.toJSON(message.claimsSigningAddress)
+    message.claims_signing_address !== undefined &&
+      (obj.claims_signing_address = message.claims_signing_address
+        ? address.toJSON(message.claims_signing_address)
         : undefined);
     message.claims !== undefined &&
       (obj.claims = message.claims ? claims.toJSON(message.claims) : undefined);
     message.header !== undefined &&
       (obj.header = message.header ? header.toJSON(message.header) : undefined);
-    message.claimsSignature !== undefined &&
-      (obj.claimsSignature = message.claimsSignature);
-    message.metadataSignature !== undefined &&
-      (obj.metadataSignature = message.metadataSignature);
+    message.claims_signature !== undefined &&
+      (obj.claims_signature = message.claims_signature);
+    message.metadata_signature !== undefined &&
+      (obj.metadata_signature = message.metadata_signature);
     return obj;
   },
 
   fromPartial(object: DeepPartial<signature>): signature {
     const message = { ...basesignature } as signature;
     if (
-      object.claimsSigningAddress !== undefined &&
-      object.claimsSigningAddress !== null
+      object.claims_signing_address !== undefined &&
+      object.claims_signing_address !== null
     ) {
-      message.claimsSigningAddress = address.fromPartial(
-        object.claimsSigningAddress
+      message.claims_signing_address = address.fromPartial(
+        object.claims_signing_address
       );
     } else {
-      message.claimsSigningAddress = undefined;
+      message.claims_signing_address = undefined;
     }
     if (object.claims !== undefined && object.claims !== null) {
       message.claims = claims.fromPartial(object.claims);
@@ -241,20 +241,20 @@ export const signature = {
       message.header = undefined;
     }
     if (
-      object.claimsSignature !== undefined &&
-      object.claimsSignature !== null
+      object.claims_signature !== undefined &&
+      object.claims_signature !== null
     ) {
-      message.claimsSignature = object.claimsSignature;
+      message.claims_signature = object.claims_signature;
     } else {
-      message.claimsSignature = "";
+      message.claims_signature = "";
     }
     if (
-      object.metadataSignature !== undefined &&
-      object.metadataSignature !== null
+      object.metadata_signature !== undefined &&
+      object.metadata_signature !== null
     ) {
-      message.metadataSignature = object.metadataSignature;
+      message.metadata_signature = object.metadata_signature;
     } else {
-      message.metadataSignature = "";
+      message.metadata_signature = "";
     }
     return message;
   },
@@ -339,9 +339,9 @@ export const header = {
 
 const baseclaims: object = {
   issuer: "",
-  metadataSigningKey: "",
-  expiresAt: 0,
-  issuedAt: 0,
+  metadata_signing_key: "",
+  expires_at: 0,
+  issued_at: 0,
 };
 
 export const claims = {
@@ -352,14 +352,14 @@ export const claims = {
     if (message.issuer !== "") {
       writer.uint32(10).string(message.issuer);
     }
-    if (message.metadataSigningKey !== "") {
-      writer.uint32(18).string(message.metadataSigningKey);
+    if (message.metadata_signing_key !== "") {
+      writer.uint32(18).string(message.metadata_signing_key);
     }
-    if (message.expiresAt !== 0) {
-      writer.uint32(24).int64(message.expiresAt);
+    if (message.expires_at !== 0) {
+      writer.uint32(24).int64(message.expires_at);
     }
-    if (message.issuedAt !== 0) {
-      writer.uint32(32).int64(message.issuedAt);
+    if (message.issued_at !== 0) {
+      writer.uint32(32).int64(message.issued_at);
     }
     return writer;
   },
@@ -375,13 +375,13 @@ export const claims = {
           message.issuer = reader.string();
           break;
         case 2:
-          message.metadataSigningKey = reader.string();
+          message.metadata_signing_key = reader.string();
           break;
         case 3:
-          message.expiresAt = longToNumber(reader.int64() as Long);
+          message.expires_at = longToNumber(reader.int64() as Long);
           break;
         case 4:
-          message.issuedAt = longToNumber(reader.int64() as Long);
+          message.issued_at = longToNumber(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -399,22 +399,22 @@ export const claims = {
       message.issuer = "";
     }
     if (
-      object.metadataSigningKey !== undefined &&
-      object.metadataSigningKey !== null
+      object.metadata_signing_key !== undefined &&
+      object.metadata_signing_key !== null
     ) {
-      message.metadataSigningKey = String(object.metadataSigningKey);
+      message.metadata_signing_key = String(object.metadata_signing_key);
     } else {
-      message.metadataSigningKey = "";
+      message.metadata_signing_key = "";
     }
-    if (object.expiresAt !== undefined && object.expiresAt !== null) {
-      message.expiresAt = Number(object.expiresAt);
+    if (object.expires_at !== undefined && object.expires_at !== null) {
+      message.expires_at = Number(object.expires_at);
     } else {
-      message.expiresAt = 0;
+      message.expires_at = 0;
     }
-    if (object.issuedAt !== undefined && object.issuedAt !== null) {
-      message.issuedAt = Number(object.issuedAt);
+    if (object.issued_at !== undefined && object.issued_at !== null) {
+      message.issued_at = Number(object.issued_at);
     } else {
-      message.issuedAt = 0;
+      message.issued_at = 0;
     }
     return message;
   },
@@ -422,10 +422,10 @@ export const claims = {
   toJSON(message: claims): unknown {
     const obj: any = {};
     message.issuer !== undefined && (obj.issuer = message.issuer);
-    message.metadataSigningKey !== undefined &&
-      (obj.metadataSigningKey = message.metadataSigningKey);
-    message.expiresAt !== undefined && (obj.expiresAt = message.expiresAt);
-    message.issuedAt !== undefined && (obj.issuedAt = message.issuedAt);
+    message.metadata_signing_key !== undefined &&
+      (obj.metadata_signing_key = message.metadata_signing_key);
+    message.expires_at !== undefined && (obj.expires_at = message.expires_at);
+    message.issued_at !== undefined && (obj.issued_at = message.issued_at);
     return obj;
   },
 
@@ -437,22 +437,22 @@ export const claims = {
       message.issuer = "";
     }
     if (
-      object.metadataSigningKey !== undefined &&
-      object.metadataSigningKey !== null
+      object.metadata_signing_key !== undefined &&
+      object.metadata_signing_key !== null
     ) {
-      message.metadataSigningKey = object.metadataSigningKey;
+      message.metadata_signing_key = object.metadata_signing_key;
     } else {
-      message.metadataSigningKey = "";
+      message.metadata_signing_key = "";
     }
-    if (object.expiresAt !== undefined && object.expiresAt !== null) {
-      message.expiresAt = object.expiresAt;
+    if (object.expires_at !== undefined && object.expires_at !== null) {
+      message.expires_at = object.expires_at;
     } else {
-      message.expiresAt = 0;
+      message.expires_at = 0;
     }
-    if (object.issuedAt !== undefined && object.issuedAt !== null) {
-      message.issuedAt = object.issuedAt;
+    if (object.issued_at !== undefined && object.issued_at !== null) {
+      message.issued_at = object.issued_at;
     } else {
-      message.issuedAt = 0;
+      message.issued_at = 0;
     }
     return message;
   },
