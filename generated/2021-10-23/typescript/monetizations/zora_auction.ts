@@ -9,16 +9,11 @@ export const protobufPackage = "metadata";
 export interface zora_auction {
   network: network;
   auction_contract_address: address | undefined;
-  auction_id: string;
   erc721_contract_address: address | undefined;
   erc721_token_id: string;
 }
 
-const basezora_auction: object = {
-  network: 0,
-  auction_id: "",
-  erc721_token_id: "",
-};
+const basezora_auction: object = { network: 0, erc721_token_id: "" };
 
 export const zora_auction = {
   encode(
@@ -33,16 +28,13 @@ export const zora_auction = {
         .encode(message.auction_contract_address, writer.uint32(18).fork())
         .ldelim();
     }
-    if (message.auction_id !== "") {
-      writer.uint32(26).string(message.auction_id);
-    }
     if (message.erc721_contract_address !== undefined) {
       address
-        .encode(message.erc721_contract_address, writer.uint32(34).fork())
+        .encode(message.erc721_contract_address, writer.uint32(26).fork())
         .ldelim();
     }
     if (message.erc721_token_id !== "") {
-      writer.uint32(42).string(message.erc721_token_id);
+      writer.uint32(34).string(message.erc721_token_id);
     }
     return writer;
   },
@@ -64,15 +56,12 @@ export const zora_auction = {
           );
           break;
         case 3:
-          message.auction_id = reader.string();
-          break;
-        case 4:
           message.erc721_contract_address = address.decode(
             reader,
             reader.uint32()
           );
           break;
-        case 5:
+        case 4:
           message.erc721_token_id = reader.string();
           break;
         default:
@@ -99,11 +88,6 @@ export const zora_auction = {
       );
     } else {
       message.auction_contract_address = undefined;
-    }
-    if (object.auction_id !== undefined && object.auction_id !== null) {
-      message.auction_id = String(object.auction_id);
-    } else {
-      message.auction_id = "";
     }
     if (
       object.erc721_contract_address !== undefined &&
@@ -134,7 +118,6 @@ export const zora_auction = {
       (obj.auction_contract_address = message.auction_contract_address
         ? address.toJSON(message.auction_contract_address)
         : undefined);
-    message.auction_id !== undefined && (obj.auction_id = message.auction_id);
     message.erc721_contract_address !== undefined &&
       (obj.erc721_contract_address = message.erc721_contract_address
         ? address.toJSON(message.erc721_contract_address)
@@ -160,11 +143,6 @@ export const zora_auction = {
       );
     } else {
       message.auction_contract_address = undefined;
-    }
-    if (object.auction_id !== undefined && object.auction_id !== null) {
-      message.auction_id = object.auction_id;
-    } else {
-      message.auction_id = "";
     }
     if (
       object.erc721_contract_address !== undefined &&

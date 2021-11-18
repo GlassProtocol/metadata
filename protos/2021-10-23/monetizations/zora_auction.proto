@@ -9,7 +9,6 @@ import "primitives/network.proto";
 message zora_auction {
     network network = 1;
     address auction_contract_address = 2;
-    string auction_id = 3;
-    address erc721_contract_address = 4;
-    string erc721_token_id = 5;
+    address erc721_contract_address = 3;
+    string erc721_token_id = 4;
 }
