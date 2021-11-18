@@ -6,6 +6,8 @@ import "monetizations/tips.proto";
 import "monetizations/chained_editions.proto";
 import "monetizations/monocollection_editions.proto";
 import "monetizations/erc721_reserve_auction.proto";
+import "monetizations/zora_auction.proto";
+
 
 
 
@@ -21,5 +23,6 @@ message static_video {
         chained_editions chained_editions = 102;
         monocollection_editions monocollection_editions = 103; 
         erc721_reserve_auction erc721_reserve_auction = 104;
+        zora_auction zora_auction = 105;
     }
 }

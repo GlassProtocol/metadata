@@ -5,6 +5,7 @@ import { tips } from "../monetizations/tips";
 import { chained_editions } from "../monetizations/chained_editions";
 import { monocollection_editions } from "../monetizations/monocollection_editions";
 import { erc721_reserve_auction } from "../monetizations/erc721_reserve_auction";
+import { zora_auction } from "../monetizations/zora_auction";
 
 export const protobufPackage = "metadata";
 
@@ -17,6 +18,7 @@ export interface static_video {
   chained_editions: chained_editions | undefined;
   monocollection_editions: monocollection_editions | undefined;
   erc721_reserve_auction: erc721_reserve_auction | undefined;
+  zora_auction: zora_auction | undefined;
 }
 
 const basestatic_video: object = {
@@ -61,6 +63,11 @@ export const static_video = {
         .encode(message.erc721_reserve_auction, writer.uint32(834).fork())
         .ldelim();
     }
+    if (message.zora_auction !== undefined) {
+      zora_auction
+        .encode(message.zora_auction, writer.uint32(842).fork())
+        .ldelim();
+    }
     return writer;
   },
 
@@ -103,6 +110,9 @@ export const static_video = {
             reader,
             reader.uint32()
           );
+          break;
+        case 105:
+          message.zora_auction = zora_auction.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -169,6 +179,11 @@ export const static_video = {
     } else {
       message.erc721_reserve_auction = undefined;
     }
+    if (object.zora_auction !== undefined && object.zora_auction !== null) {
+      message.zora_auction = zora_auction.fromJSON(object.zora_auction);
+    } else {
+      message.zora_auction = undefined;
+    }
     return message;
   },
 
@@ -191,6 +206,10 @@ export const static_video = {
     message.erc721_reserve_auction !== undefined &&
       (obj.erc721_reserve_auction = message.erc721_reserve_auction
         ? erc721_reserve_auction.toJSON(message.erc721_reserve_auction)
+        : undefined);
+    message.zora_auction !== undefined &&
+      (obj.zora_auction = message.zora_auction
+        ? zora_auction.toJSON(message.zora_auction)
         : undefined);
     return obj;
   },
@@ -251,6 +270,11 @@ export const static_video = {
       );
     } else {
       message.erc721_reserve_auction = undefined;
+    }
+    if (object.zora_auction !== undefined && object.zora_auction !== null) {
+      message.zora_auction = zora_auction.fromPartial(object.zora_auction);
+    } else {
+      message.zora_auction = undefined;
     }
     return message;
   },
