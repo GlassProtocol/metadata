@@ -9,11 +9,11 @@ export const protobufPackage = "metadata";
 export interface zora_auction {
   network: network;
   auction_contract_address: address | undefined;
-  erc721_contract_address: address | undefined;
-  erc721_token_id: string;
+  token_contract_address: address | undefined;
+  token_id: string;
 }
 
-const basezora_auction: object = { network: 0, erc721_token_id: "" };
+const basezora_auction: object = { network: 0, token_id: "" };
 
 export const zora_auction = {
   encode(
@@ -28,13 +28,13 @@ export const zora_auction = {
         .encode(message.auction_contract_address, writer.uint32(18).fork())
         .ldelim();
     }
-    if (message.erc721_contract_address !== undefined) {
+    if (message.token_contract_address !== undefined) {
       address
-        .encode(message.erc721_contract_address, writer.uint32(26).fork())
+        .encode(message.token_contract_address, writer.uint32(26).fork())
         .ldelim();
     }
-    if (message.erc721_token_id !== "") {
-      writer.uint32(34).string(message.erc721_token_id);
+    if (message.token_id !== "") {
+      writer.uint32(34).string(message.token_id);
     }
     return writer;
   },
@@ -56,13 +56,13 @@ export const zora_auction = {
           );
           break;
         case 3:
-          message.erc721_contract_address = address.decode(
+          message.token_contract_address = address.decode(
             reader,
             reader.uint32()
           );
           break;
         case 4:
-          message.erc721_token_id = reader.string();
+          message.token_id = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -90,22 +90,19 @@ export const zora_auction = {
       message.auction_contract_address = undefined;
     }
     if (
-      object.erc721_contract_address !== undefined &&
-      object.erc721_contract_address !== null
+      object.token_contract_address !== undefined &&
+      object.token_contract_address !== null
     ) {
-      message.erc721_contract_address = address.fromJSON(
-        object.erc721_contract_address
+      message.token_contract_address = address.fromJSON(
+        object.token_contract_address
       );
     } else {
-      message.erc721_contract_address = undefined;
+      message.token_contract_address = undefined;
     }
-    if (
-      object.erc721_token_id !== undefined &&
-      object.erc721_token_id !== null
-    ) {
-      message.erc721_token_id = String(object.erc721_token_id);
+    if (object.token_id !== undefined && object.token_id !== null) {
+      message.token_id = String(object.token_id);
     } else {
-      message.erc721_token_id = "";
+      message.token_id = "";
     }
     return message;
   },
@@ -118,12 +115,11 @@ export const zora_auction = {
       (obj.auction_contract_address = message.auction_contract_address
         ? address.toJSON(message.auction_contract_address)
         : undefined);
-    message.erc721_contract_address !== undefined &&
-      (obj.erc721_contract_address = message.erc721_contract_address
-        ? address.toJSON(message.erc721_contract_address)
+    message.token_contract_address !== undefined &&
+      (obj.token_contract_address = message.token_contract_address
+        ? address.toJSON(message.token_contract_address)
         : undefined);
-    message.erc721_token_id !== undefined &&
-      (obj.erc721_token_id = message.erc721_token_id);
+    message.token_id !== undefined && (obj.token_id = message.token_id);
     return obj;
   },
 
@@ -145,22 +141,19 @@ export const zora_auction = {
       message.auction_contract_address = undefined;
     }
     if (
-      object.erc721_contract_address !== undefined &&
-      object.erc721_contract_address !== null
+      object.token_contract_address !== undefined &&
+      object.token_contract_address !== null
     ) {
-      message.erc721_contract_address = address.fromPartial(
-        object.erc721_contract_address
+      message.token_contract_address = address.fromPartial(
+        object.token_contract_address
       );
     } else {
-      message.erc721_contract_address = undefined;
+      message.token_contract_address = undefined;
     }
-    if (
-      object.erc721_token_id !== undefined &&
-      object.erc721_token_id !== null
-    ) {
-      message.erc721_token_id = object.erc721_token_id;
+    if (object.token_id !== undefined && object.token_id !== null) {
+      message.token_id = object.token_id;
     } else {
-      message.erc721_token_id = "";
+      message.token_id = "";
     }
     return message;
   },
