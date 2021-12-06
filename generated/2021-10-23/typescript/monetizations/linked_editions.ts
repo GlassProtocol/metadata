@@ -6,17 +6,17 @@ import { address } from "../primitives/address";
 
 export const protobufPackage = "metadata";
 
-export interface chained_editions {
+export interface linked_editions {
   network: network;
   contract_address: address | undefined;
-  mintkey_contracts: address[];
+  linked_contract: address | undefined;
 }
 
-const basechained_editions: object = { network: 0 };
+const baselinked_editions: object = { network: 0 };
 
-export const chained_editions = {
+export const linked_editions = {
   encode(
-    message: chained_editions,
+    message: linked_editions,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.network !== 0) {
@@ -27,17 +27,18 @@ export const chained_editions = {
         .encode(message.contract_address, writer.uint32(18).fork())
         .ldelim();
     }
-    for (const v of message.mintkey_contracts) {
-      address.encode(v!, writer.uint32(26).fork()).ldelim();
+    if (message.linked_contract !== undefined) {
+      address
+        .encode(message.linked_contract, writer.uint32(26).fork())
+        .ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): chained_editions {
+  decode(input: _m0.Reader | Uint8Array, length?: number): linked_editions {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basechained_editions } as chained_editions;
-    message.mintkey_contracts = [];
+    const message = { ...baselinked_editions } as linked_editions;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -48,9 +49,7 @@ export const chained_editions = {
           message.contract_address = address.decode(reader, reader.uint32());
           break;
         case 3:
-          message.mintkey_contracts.push(
-            address.decode(reader, reader.uint32())
-          );
+          message.linked_contract = address.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -60,9 +59,8 @@ export const chained_editions = {
     return message;
   },
 
-  fromJSON(object: any): chained_editions {
-    const message = { ...basechained_editions } as chained_editions;
-    message.mintkey_contracts = [];
+  fromJSON(object: any): linked_editions {
+    const message = { ...baselinked_editions } as linked_editions;
     if (object.network !== undefined && object.network !== null) {
       message.network = networkFromJSON(object.network);
     } else {
@@ -77,17 +75,17 @@ export const chained_editions = {
       message.contract_address = undefined;
     }
     if (
-      object.mintkey_contracts !== undefined &&
-      object.mintkey_contracts !== null
+      object.linked_contract !== undefined &&
+      object.linked_contract !== null
     ) {
-      for (const e of object.mintkey_contracts) {
-        message.mintkey_contracts.push(address.fromJSON(e));
-      }
+      message.linked_contract = address.fromJSON(object.linked_contract);
+    } else {
+      message.linked_contract = undefined;
     }
     return message;
   },
 
-  toJSON(message: chained_editions): unknown {
+  toJSON(message: linked_editions): unknown {
     const obj: any = {};
     message.network !== undefined &&
       (obj.network = networkToJSON(message.network));
@@ -95,19 +93,15 @@ export const chained_editions = {
       (obj.contract_address = message.contract_address
         ? address.toJSON(message.contract_address)
         : undefined);
-    if (message.mintkey_contracts) {
-      obj.mintkey_contracts = message.mintkey_contracts.map((e) =>
-        e ? address.toJSON(e) : undefined
-      );
-    } else {
-      obj.mintkey_contracts = [];
-    }
+    message.linked_contract !== undefined &&
+      (obj.linked_contract = message.linked_contract
+        ? address.toJSON(message.linked_contract)
+        : undefined);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<chained_editions>): chained_editions {
-    const message = { ...basechained_editions } as chained_editions;
-    message.mintkey_contracts = [];
+  fromPartial(object: DeepPartial<linked_editions>): linked_editions {
+    const message = { ...baselinked_editions } as linked_editions;
     if (object.network !== undefined && object.network !== null) {
       message.network = object.network;
     } else {
@@ -122,12 +116,12 @@ export const chained_editions = {
       message.contract_address = undefined;
     }
     if (
-      object.mintkey_contracts !== undefined &&
-      object.mintkey_contracts !== null
+      object.linked_contract !== undefined &&
+      object.linked_contract !== null
     ) {
-      for (const e of object.mintkey_contracts) {
-        message.mintkey_contracts.push(address.fromPartial(e));
-      }
+      message.linked_contract = address.fromPartial(object.linked_contract);
+    } else {
+      message.linked_contract = undefined;
     }
     return message;
   },

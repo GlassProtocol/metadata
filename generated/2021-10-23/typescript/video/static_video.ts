@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { tips } from "../monetizations/tips";
-import { chained_editions } from "../monetizations/chained_editions";
+import { linked_editions } from "../monetizations/linked_editions";
 import { monocollection_editions } from "../monetizations/monocollection_editions";
 import { erc721_reserve_auction } from "../monetizations/erc721_reserve_auction";
 import { zora_auction } from "../monetizations/zora_auction";
@@ -15,7 +15,7 @@ export interface static_video {
   height: number;
   width: number;
   tips: tips | undefined;
-  chained_editions: chained_editions | undefined;
+  linked_editions: linked_editions | undefined;
   monocollection_editions: monocollection_editions | undefined;
   erc721_reserve_auction: erc721_reserve_auction | undefined;
   zora_auction: zora_auction | undefined;
@@ -48,9 +48,9 @@ export const static_video = {
     if (message.tips !== undefined) {
       tips.encode(message.tips, writer.uint32(810).fork()).ldelim();
     }
-    if (message.chained_editions !== undefined) {
-      chained_editions
-        .encode(message.chained_editions, writer.uint32(818).fork())
+    if (message.linked_editions !== undefined) {
+      linked_editions
+        .encode(message.linked_editions, writer.uint32(818).fork())
         .ldelim();
     }
     if (message.monocollection_editions !== undefined) {
@@ -94,7 +94,7 @@ export const static_video = {
           message.tips = tips.decode(reader, reader.uint32());
           break;
         case 102:
-          message.chained_editions = chained_editions.decode(
+          message.linked_editions = linked_editions.decode(
             reader,
             reader.uint32()
           );
@@ -150,14 +150,14 @@ export const static_video = {
       message.tips = undefined;
     }
     if (
-      object.chained_editions !== undefined &&
-      object.chained_editions !== null
+      object.linked_editions !== undefined &&
+      object.linked_editions !== null
     ) {
-      message.chained_editions = chained_editions.fromJSON(
-        object.chained_editions
+      message.linked_editions = linked_editions.fromJSON(
+        object.linked_editions
       );
     } else {
-      message.chained_editions = undefined;
+      message.linked_editions = undefined;
     }
     if (
       object.monocollection_editions !== undefined &&
@@ -195,9 +195,9 @@ export const static_video = {
     message.width !== undefined && (obj.width = message.width);
     message.tips !== undefined &&
       (obj.tips = message.tips ? tips.toJSON(message.tips) : undefined);
-    message.chained_editions !== undefined &&
-      (obj.chained_editions = message.chained_editions
-        ? chained_editions.toJSON(message.chained_editions)
+    message.linked_editions !== undefined &&
+      (obj.linked_editions = message.linked_editions
+        ? linked_editions.toJSON(message.linked_editions)
         : undefined);
     message.monocollection_editions !== undefined &&
       (obj.monocollection_editions = message.monocollection_editions
@@ -242,14 +242,14 @@ export const static_video = {
       message.tips = undefined;
     }
     if (
-      object.chained_editions !== undefined &&
-      object.chained_editions !== null
+      object.linked_editions !== undefined &&
+      object.linked_editions !== null
     ) {
-      message.chained_editions = chained_editions.fromPartial(
-        object.chained_editions
+      message.linked_editions = linked_editions.fromPartial(
+        object.linked_editions
       );
     } else {
-      message.chained_editions = undefined;
+      message.linked_editions = undefined;
     }
     if (
       object.monocollection_editions !== undefined &&
