@@ -14,6 +14,7 @@ export interface static_video {
   audio: boolean;
   height: number;
   width: number;
+  scheduled_time: number;
   tips: tips | undefined;
   linked_editions: linked_editions | undefined;
   monocollection_editions: monocollection_editions | undefined;
@@ -26,6 +27,7 @@ const basestatic_video: object = {
   audio: false,
   height: 0,
   width: 0,
+  scheduled_time: 0,
 };
 
 export const static_video = {
@@ -44,6 +46,9 @@ export const static_video = {
     }
     if (message.width !== 0) {
       writer.uint32(32).uint32(message.width);
+    }
+    if (message.scheduled_time !== 0) {
+      writer.uint32(40).int64(message.scheduled_time);
     }
     if (message.tips !== undefined) {
       tips.encode(message.tips, writer.uint32(810).fork()).ldelim();
@@ -89,6 +94,9 @@ export const static_video = {
           break;
         case 4:
           message.width = reader.uint32();
+          break;
+        case 5:
+          message.scheduled_time = longToNumber(reader.int64() as Long);
           break;
         case 101:
           message.tips = tips.decode(reader, reader.uint32());
@@ -144,6 +152,11 @@ export const static_video = {
     } else {
       message.width = 0;
     }
+    if (object.scheduled_time !== undefined && object.scheduled_time !== null) {
+      message.scheduled_time = Number(object.scheduled_time);
+    } else {
+      message.scheduled_time = 0;
+    }
     if (object.tips !== undefined && object.tips !== null) {
       message.tips = tips.fromJSON(object.tips);
     } else {
@@ -193,6 +206,8 @@ export const static_video = {
     message.audio !== undefined && (obj.audio = message.audio);
     message.height !== undefined && (obj.height = message.height);
     message.width !== undefined && (obj.width = message.width);
+    message.scheduled_time !== undefined &&
+      (obj.scheduled_time = message.scheduled_time);
     message.tips !== undefined &&
       (obj.tips = message.tips ? tips.toJSON(message.tips) : undefined);
     message.linked_editions !== undefined &&
@@ -235,6 +250,11 @@ export const static_video = {
       message.width = object.width;
     } else {
       message.width = 0;
+    }
+    if (object.scheduled_time !== undefined && object.scheduled_time !== null) {
+      message.scheduled_time = object.scheduled_time;
+    } else {
+      message.scheduled_time = 0;
     }
     if (object.tips !== undefined && object.tips !== null) {
       message.tips = tips.fromPartial(object.tips);
@@ -280,6 +300,16 @@ export const static_video = {
   },
 };
 
+declare var self: any | undefined;
+declare var window: any | undefined;
+var globalThis: any = (() => {
+  if (typeof globalThis !== "undefined") return globalThis;
+  if (typeof self !== "undefined") return self;
+  if (typeof window !== "undefined") return window;
+  if (typeof global !== "undefined") return global;
+  throw "Unable to locate global object";
+})();
+
 type Builtin =
   | Date
   | Function
@@ -297,6 +327,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
+}
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
