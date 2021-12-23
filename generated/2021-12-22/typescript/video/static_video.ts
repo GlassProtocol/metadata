@@ -6,6 +6,7 @@ import { linked_editions } from "../monetizations/linked_editions";
 import { monocollection_editions } from "../monetizations/monocollection_editions";
 import { erc721_reserve_auction } from "../monetizations/erc721_reserve_auction";
 import { zora_auction } from "../monetizations/zora_auction";
+import { media_market } from "../monetizations/media_market";
 
 export const protobufPackage = "metadata";
 
@@ -20,6 +21,7 @@ export interface static_video {
   monocollection_editions: monocollection_editions | undefined;
   erc721_reserve_auction: erc721_reserve_auction | undefined;
   zora_auction: zora_auction | undefined;
+  media_market: media_market | undefined;
 }
 
 const basestatic_video: object = {
@@ -73,6 +75,11 @@ export const static_video = {
         .encode(message.zora_auction, writer.uint32(842).fork())
         .ldelim();
     }
+    if (message.media_market !== undefined) {
+      media_market
+        .encode(message.media_market, writer.uint32(850).fork())
+        .ldelim();
+    }
     return writer;
   },
 
@@ -121,6 +128,9 @@ export const static_video = {
           break;
         case 105:
           message.zora_auction = zora_auction.decode(reader, reader.uint32());
+          break;
+        case 106:
+          message.media_market = media_market.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -197,6 +207,11 @@ export const static_video = {
     } else {
       message.zora_auction = undefined;
     }
+    if (object.media_market !== undefined && object.media_market !== null) {
+      message.media_market = media_market.fromJSON(object.media_market);
+    } else {
+      message.media_market = undefined;
+    }
     return message;
   },
 
@@ -225,6 +240,10 @@ export const static_video = {
     message.zora_auction !== undefined &&
       (obj.zora_auction = message.zora_auction
         ? zora_auction.toJSON(message.zora_auction)
+        : undefined);
+    message.media_market !== undefined &&
+      (obj.media_market = message.media_market
+        ? media_market.toJSON(message.media_market)
         : undefined);
     return obj;
   },
@@ -295,6 +314,11 @@ export const static_video = {
       message.zora_auction = zora_auction.fromPartial(object.zora_auction);
     } else {
       message.zora_auction = undefined;
+    }
+    if (object.media_market !== undefined && object.media_market !== null) {
+      message.media_market = media_market.fromPartial(object.media_market);
+    } else {
+      message.media_market = undefined;
     }
     return message;
   },
