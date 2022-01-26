@@ -1,0 +1,12 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "primitives/thumbnail.proto";
+
+message profile {
+    string name = 1;
+    string bio = 2;
+    repeated thumbnail profile_images = 3;
+    repeated thumbnail banner_images = 4;
+}

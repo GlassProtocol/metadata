@@ -1,0 +1,36 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "primitives/address.proto";
+
+message signature {
+    address claims_signing_address = 1; // crypto address used to attest to a given address
+    claims claims = 2; // this gets signed
+    header header = 3; // type of algorithm used
+    string claims_signature = 4; // signature of header by the attesting_public_key
+    string metadata_signature = 5; // signed by the temporary key
+}
+
+message header {
+    algorithm algorithm = 1; // ed25519
+    encoding encoding = 2; // base64URL
+}
+
+enum algorithm {
+    ALGORITHM_UNDEFINED = 0;
+    ED25519 = 1;
+}
+
+enum encoding {
+    ENCODING_UNDEFINED = 0;
+    BASE64_URL = 1;
+}
+
+
+message claims {
+    string issuer = 1; // GLASS.XYZ
+    string metadata_signing_key = 2; // the 
+    int64 expires_at = 3; // expires at
+    int64 issued_at = 4; // issued at
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "primitives/address.proto";
+import "primitives/network.proto";
+
+
+message media_market {
+    network network = 1;
+    address media_address = 2;
+    address market_address = 3;
+}

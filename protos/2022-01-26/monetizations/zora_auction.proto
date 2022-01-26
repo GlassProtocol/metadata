@@ -1,0 +1,14 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "primitives/address.proto";
+import "primitives/network.proto";
+
+
+message zora_auction {
+    network network = 1;
+    address auction_contract_address = 2;
+    address token_contract_address = 3;
+    string token_id = 4;
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "primitives/link.proto";
+import "primitives/thumbnail.proto";
+import "video/static_video.proto";
+import "video/livestream.proto";
+
+
+
+message video_metadata {
+    int64 created_time = 1;
+    string title = 2;
+    string description = 3;
+    repeated thumbnail thumbnails = 4;
+    link video_source = 5;
+    oneof video_type {
+        static_video static_video = 6;
+        livestream livestream = 7;
+    }
+}

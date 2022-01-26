@@ -1,0 +1,10 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "primitives/protocol.proto";
+
+message address {
+    string address = 1;
+    protocol protocol = 2;
+}

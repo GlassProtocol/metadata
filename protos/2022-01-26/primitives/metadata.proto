@@ -1,0 +1,21 @@
+syntax = "proto3";
+package metadata;
+option go_package = "/;metadata";
+
+import "video/video_metadata.proto";
+import "primitives/signature.proto";
+
+
+message metadata {
+  string version = 1; // version number
+  string did = 2;
+  signature signature = 3;
+  data data = 4;
+}
+
+
+message data {
+  oneof data {
+    video_metadata video = 4;
+  }
+}
